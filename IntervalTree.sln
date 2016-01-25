@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree", "IntervalTree\IntervalTree.csproj", "{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree.Tests", "IntervalTree.Tests\IntervalTree.Tests.csproj", "{AB317863-858F-45FC-83F8-895DB8047AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB317863-858F-45FC-83F8-895DB8047AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB317863-858F-45FC-83F8-895DB8047AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB317863-858F-45FC-83F8-895DB8047AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB317863-858F-45FC-83F8-895DB8047AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
