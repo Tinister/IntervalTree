@@ -55,5 +55,70 @@ namespace IntervalTreeNS
 			return Comparer<TEndpoint>.Default.Compare(other.Start, End) < 0
 				&& Comparer<TEndpoint>.Default.Compare(Start, other.End) < 0;
 		}
+
+		/// <summary>Determines if the specified interval is adjacent this interval.</summary>
+		/// <param name="other">Interval to compare with this one.</param>
+		/// <returns><c>true</c> if they are adjacent, <c>false</c> otherwise.</returns>
+		public bool IsAdjacentTo(IInterval<TEndpoint> other)
+		{
+			if (other == null)
+				throw new ArgumentNullException(nameof(other));
+			if (Comparer<TEndpoint>.Default.Compare(other.Start, other.End) > 0)
+				throw new ArgumentException("Interval end must occur after the interval start.");
+
+			return Comparer<TEndpoint>.Default.Compare(End, other.Start) == 0
+				|| Comparer<TEndpoint>.Default.Compare(other.End, Start) == 0;
+		}
+
+		/// <summary>Determines if the specified interval intersects or is adjacent to this interval.</summary>
+		/// <param name="other">Interval to compare with this one.</param>
+		/// <returns><c>true</c> if they intersect or are adjacent, <c>false</c> otherwise.</returns>
+		public bool IntersectsOrIsAdjacentTo(IInterval<TEndpoint> other)
+		{
+			if (other == null)
+				throw new ArgumentNullException(nameof(other));
+			if (Comparer<TEndpoint>.Default.Compare(other.Start, other.End) > 0)
+				throw new ArgumentException("Interval end must occur after the interval start.");
+
+			return Comparer<TEndpoint>.Default.Compare(other.Start, End) <= 0
+				&& Comparer<TEndpoint>.Default.Compare(Start, other.End) <= 0;
+		}
+
+		/// <summary>Determines if the specified interval is equivalent to this interval.</summary>
+		/// <param name="other">Interval to compare with this one.</param>
+		/// <returns><c>true</c> if they are equivalent, <c>false</c> otherwise.</returns>
+		public bool IsEquivalentTo(IInterval<TEndpoint> other)
+		{
+			if (other == null)
+				throw new ArgumentNullException(nameof(other));
+			if (Comparer<TEndpoint>.Default.Compare(other.Start, other.End) > 0)
+				throw new ArgumentException("Interval end must occur after the interval start.");
+
+			return Comparer<TEndpoint>.Default.Compare(Start, other.Start) == 0
+				|| Comparer<TEndpoint>.Default.Compare(End, other.End) == 0;
+		}
+
+		/// <summary>Determines if this interval contains the specified interval.</summary>
+		/// <param name="other">Interval to compare with this one.</param>
+		/// <returns><c>true</c> if the specified interval is contained within this one, <c>false</c> otherwise.</returns>
+		public bool Contains(IInterval<TEndpoint> other)
+		{
+			if (other == null)
+				throw new ArgumentNullException(nameof(other));
+			if (Comparer<TEndpoint>.Default.Compare(other.Start, other.End) > 0)
+				throw new ArgumentException("Interval end must occur after the interval start.");
+
+			return Comparer<TEndpoint>.Default.Compare(Start, other.Start) <= 0
+				&& Comparer<TEndpoint>.Default.Compare(End, other.End) >= 0;
+		}
+
+		/// <summary>Determines if this interval contains the specified value.</summary>
+		/// <param name="value">Value to compare.</param>
+		/// <returns><c>true</c> if this interval contains the specified value, <c>false</c> otherwise.</returns>
+		public bool Contains(TEndpoint value)
+		{
+			return Comparer<TEndpoint>.Default.Compare(Start, value) <= 0
+				&& Comparer<TEndpoint>.Default.Compare(End, value) >= 0;
+		}
 	}
 }
