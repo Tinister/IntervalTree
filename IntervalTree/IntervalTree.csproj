@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\analyzers.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\standard.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\IntervalTree.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

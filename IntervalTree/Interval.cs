@@ -15,7 +15,7 @@ namespace IntervalTreeNS
 		/// <param name="end">The inclusive ending point of the interval.</param>
 		public Interval(TEndpoint start, TEndpoint end)
 		{
-			if (Comparer<TEndpoint>.Default.Compare(start, end) < 0)
+			if (Comparer<TEndpoint>.Default.Compare(start, end) > 0)
 				throw new ArgumentException("Interval end must occur after the interval start.");
 
 			Start = start;
