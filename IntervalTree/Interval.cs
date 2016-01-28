@@ -29,7 +29,7 @@ namespace IntervalTreeNS
 		{
 			if (interval == null)
 				throw new ArgumentNullException(nameof(interval));
-			if (Comparer<TEndpoint>.Default.Compare(interval.Start, interval.End) < 0)
+			if (Comparer<TEndpoint>.Default.Compare(interval.Start, interval.End) > 0)
 				throw new ArgumentException("Interval end must occur after the interval start.");
 
 			Start = interval.Start;
@@ -41,5 +41,19 @@ namespace IntervalTreeNS
 
 		/// <summary>Gets the inclusive ending point of the interval.</summary>
 		public TEndpoint End { get; }
+
+		/// <summary>Determines if the specified interval intersects this interval.</summary>
+		/// <param name="other">Interval to compare with this one.</param>
+		/// <returns><c>true</c> if they intersect, <c>false</c> otherwise.</returns>
+		public bool Intersects(IInterval<TEndpoint> other)
+		{
+			if (other == null)
+				throw new ArgumentNullException(nameof(other));
+			if (Comparer<TEndpoint>.Default.Compare(other.Start, other.End) > 0)
+				throw new ArgumentException("Interval end must occur after the interval start.");
+
+			return Comparer<TEndpoint>.Default.Compare(other.Start, End) < 0
+				&& Comparer<TEndpoint>.Default.Compare(Start, other.End) < 0;
+		}
 	}
 }
