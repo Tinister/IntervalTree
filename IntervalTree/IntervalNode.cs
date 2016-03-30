@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace IntervalTreeNS
 {
@@ -12,12 +13,34 @@ namespace IntervalTreeNS
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
+		/// <summary>A single sentinel object to use as a null object.</summary>
+		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel;
+
+#if DEBUG
+		/// <summary>Last id given to nodes of this type.</summary>
+		// ReSharper disable once StaticMemberInGenericType
+		private static int lastId = -1;
+		/// <summary>Id of this node.</summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Can read this id during debug.")]
+		private readonly int id = Interlocked.Increment(ref lastId);
+#endif
+
+		static IntervalNode()
+		{
+			Sentinel = new IntervalNode<TElement, TEndpoint>();
+			// need to reset the sentinel's properties, as they're otherwise null
+			Sentinel.Parent = Sentinel;
+			Sentinel.Left = Sentinel;
+			Sentinel.Right = Sentinel;
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class.</summary>
 		/// <param name="element">The element the node represents.</param>
 		public IntervalNode(TElement element)
 		{
 			Element = element;
 			Interval = new Interval<TEndpoint>(element); // create a copy of the interval in case TElement changes...
+			Max = Interval.End;
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class to represents an empty
@@ -37,14 +60,14 @@ namespace IntervalTreeNS
 		/// <summary>Gets the color of this node.</summary>
 		internal NodeColor Color { get; private set; } = NodeColor.Black;
 
-		/// <summary>Gets the parent node to this node.</summary>
-		internal IntervalNode<TElement, TEndpoint> Parent { get; private set; } = IntervalTree<TElement, TEndpoint>.Sentinel;
+		/// <summary>Gets or sets the parent node to this node.</summary>
+		internal IntervalNode<TElement, TEndpoint> Parent { get; set; } = Sentinel;
 
-		/// <summary>Gets the left child node to this node.</summary>
-		internal IntervalNode<TElement, TEndpoint> Left { get; private set; } = IntervalTree<TElement, TEndpoint>.Sentinel;
+		/// <summary>Gets or sets the left child node to this node.</summary>
+		internal IntervalNode<TElement, TEndpoint> Left { get; set; } = Sentinel;
 
-		/// <summary>Gets the right child node to this node.</summary>
-		internal IntervalNode<TElement, TEndpoint> Right { get; private set; } = IntervalTree<TElement, TEndpoint>.Sentinel;
+		/// <summary>Gets or sets the right child node to this node.</summary>
+		internal IntervalNode<TElement, TEndpoint> Right { get; set; } = Sentinel;
 
 		/// <summary>Gets the maximum value of any endpoint in the subtree.</summary>
 		internal TEndpoint Max { get; private set; } = default(TEndpoint);
