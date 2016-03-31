@@ -25,13 +25,13 @@ namespace IntervalTreeNS
 		{
 			if (node == Sentinel || node.Right == Sentinel)
 				return; // don't rotate the sentinel up the tree
-
 			IntervalNode<TElement, TEndpoint> temp = node.Right;
+
 			node.Right = temp.Left;
 			if (temp.Left != Sentinel)
 				temp.Left.Parent = node;
-			temp.Parent = node.Parent;
 
+			temp.Parent = node.Parent;
 			if (node.Parent == Sentinel)
 				Root = temp;
 			else if (node == node.Parent.Left)
@@ -40,6 +40,30 @@ namespace IntervalTreeNS
 				node.Parent.Right = temp;
 
 			temp.Left = node;
+			node.Parent = temp;
+		}
+
+		/// <summary>Performs a right rotation operation on the specified node.</summary>
+		/// <param name="node">Node to perform a right rotation on.</param>
+		internal void RightRotate(IntervalNode<TElement, TEndpoint> node)
+		{
+			if (node == Sentinel || node.Left == Sentinel)
+				return; // don't rotate the sentinel up the tree
+			IntervalNode<TElement, TEndpoint> temp = node.Left;
+
+			node.Left = temp.Right;
+			if (temp.Right != Sentinel)
+				temp.Right.Parent = node;
+
+			temp.Parent = node.Parent;
+			if (node.Parent == Sentinel)
+				Root = temp;
+			else if (node == node.Parent.Left)
+				node.Parent.Left = temp;
+			else
+				node.Parent.Right = temp;
+
+			temp.Right = node;
 			node.Parent = temp;
 		}
 	}
