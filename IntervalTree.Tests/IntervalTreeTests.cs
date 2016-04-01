@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using IntervalTree_ = IntervalTreeNS.IntervalTree<IntervalTreeNS.Interval<int>, int>;
 using IntervalNode_ = IntervalTreeNS.IntervalNode<IntervalTreeNS.Interval<int>, int>;
+using TreeBuilder_ = IntervalTreeNS.TestHelpers.TreeBuilder<IntervalTreeNS.Interval<int>, int>;
 
 namespace IntervalTreeNS
 {
@@ -18,9 +19,9 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_();
 			IntervalNode_ nodeB = new IntervalNode_();
 
-			tree.Root = nodeA;
-			nodeA.Right = nodeB;
-			nodeB.Parent = nodeA;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.____.N(nodeB);
+			b.N(nodeA);
 
 			tree.LeftRotate(nodeA);
 
@@ -36,9 +37,9 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_();
 			IntervalNode_ nodeB = new IntervalNode_();
 
-			tree.Root = nodeA;
-			nodeA.Left = nodeB;
-			nodeB.Parent = nodeA;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.N(nodeA);
+			b.____.N(nodeB);
 
 			tree.RightRotate(nodeA);
 
@@ -60,19 +61,13 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeY = new IntervalNode_();
 			IntervalNode_ nodeZ = new IntervalNode_();
 
-			tree.Root = nodeW;
-			nodeW.Left = nodeA;
-			nodeA.Parent = nodeW;
-
-			nodeA.Left = nodeX;
-			nodeA.Right = nodeB;
-			nodeX.Parent = nodeA;
-			nodeB.Parent = nodeA;
-
-			nodeB.Left = nodeY;
-			nodeB.Right = nodeZ;
-			nodeY.Parent = nodeB;
-			nodeZ.Parent = nodeB;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.N(nodeW);
+			b.____.____.____.N(nodeZ);
+			b.____.____.N(nodeB);
+			b.____.____.____.N(nodeY);
+			b.____.N(nodeA);
+			b.____.____.N(nodeX);
 
 			tree.LeftRotate(nodeA);
 
@@ -104,19 +99,13 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeY = new IntervalNode_();
 			IntervalNode_ nodeZ = new IntervalNode_();
 
-			tree.Root = nodeW;
-			nodeW.Left = nodeA;
-			nodeA.Parent = nodeW;
-
-			nodeA.Left = nodeB;
-			nodeA.Right = nodeX;
-			nodeX.Parent = nodeA;
-			nodeB.Parent = nodeA;
-
-			nodeB.Left = nodeY;
-			nodeB.Right = nodeZ;
-			nodeY.Parent = nodeB;
-			nodeZ.Parent = nodeB;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.N(nodeW);
+			b.____.____.N(nodeX);
+			b.____.N(nodeA);
+			b.____.____.____.N(nodeZ);
+			b.____.____.N(nodeB);
+			b.____.____.____.N(nodeY);
 
 			tree.RightRotate(nodeA);
 
@@ -142,9 +131,9 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_();
 			IntervalNode_ nodeB = new IntervalNode_();
 
-			tree.Root = nodeA;
-			nodeA.Left = nodeB;
-			nodeB.Parent = nodeA;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.N(nodeA);
+			b.____.N(nodeB);
 
 			tree.LeftRotate(nodeA);
 
@@ -160,9 +149,9 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_();
 			IntervalNode_ nodeB = new IntervalNode_();
 
-			tree.Root = nodeA;
-			nodeA.Right = nodeB;
-			nodeB.Parent = nodeA;
+			TreeBuilder_ b = new TreeBuilder_(tree);
+			b.____.N(nodeB);
+			b.N(nodeA);
 
 			tree.RightRotate(nodeA);
 
