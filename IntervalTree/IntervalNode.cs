@@ -22,6 +22,9 @@ namespace IntervalTreeNS
 			Sentinel.Parent = Sentinel;
 			Sentinel.Left = Sentinel;
 			Sentinel.Right = Sentinel;
+#if DEBUG
+			Sentinel.Name = "NIL";
+#endif
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class.</summary>
@@ -41,16 +44,6 @@ namespace IntervalTreeNS
 			Interval = new Interval<TEndpoint>(default(TEndpoint), default(TEndpoint));
 		}
 
-#if DEBUG
-		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class to represent an empty
-		/// node.  Can give it a name for debug help.</summary>
-		/// <param name="name">Name of the node.</param>
-		internal IntervalNode(string name = null)
-		{
-			Name = name;
-		}
-#endif
-
 		/// <summary>Gets the element the node represents.</summary>
 		public TElement Element { get; }
 
@@ -58,8 +51,8 @@ namespace IntervalTreeNS
 		public IInterval<TEndpoint> Interval { get; }
 
 #if DEBUG
-		/// <summary>Gets the name of the node for debug.</summary>
-		internal string Name { get; }
+		/// <summary>Gets or sets the name of the node for debug.</summary>
+		internal string Name { get; set; }
 #endif
 
 		/// <summary>Gets the color of this node.</summary>

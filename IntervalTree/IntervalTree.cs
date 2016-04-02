@@ -19,6 +19,14 @@ namespace IntervalTreeNS
 		/// <summary>Gets or sets the root of the tree.</summary>
 		internal IntervalNode<TElement, TEndpoint> Root { get; set; } = Sentinel;
 
+		/// <summary>Adds the specified item to the interval tree.</summary>
+		/// <param name="item">Item to add.</param>
+		public void Add(TElement item)
+		{
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item);
+			Insert(node);
+		}
+
 		/// <summary>Performs a left rotation operation on the specified node.</summary>
 		/// <param name="node">Node to perform a left rotation on.</param>
 		internal void LeftRotate(IntervalNode<TElement, TEndpoint> node)
@@ -65,6 +73,29 @@ namespace IntervalTreeNS
 
 			temp.Right = node;
 			node.Parent = temp;
+		}
+
+		/// <summary>Inserts the node into the tree.</summary>
+		/// <param name="node">Node to insert.</param>
+		internal void Insert(IntervalNode<TElement, TEndpoint> node)
+		{
+			IntervalNode<TElement, TEndpoint> leaf = Sentinel;
+
+			// find the proper leaf node
+			IntervalNode<TElement, TEndpoint> curr = Root;
+			while (curr != Sentinel)
+			{
+				leaf = curr;
+				curr = Comparer<TEndpoint>.Default.Compare(node.Interval.Start, curr.Interval.Start) < 0 ? curr.Left : curr.Right;
+			}
+
+			node.Parent = leaf;
+			if (leaf == Sentinel)
+				Root = node;
+			else if (Comparer<TEndpoint>.Default.Compare(node.Interval.Start, leaf.Interval.Start) < 0)
+				leaf.Left = node;
+			else
+				leaf.Right = node;
 		}
 	}
 }
