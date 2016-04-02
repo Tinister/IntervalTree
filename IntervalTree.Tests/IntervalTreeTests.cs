@@ -16,8 +16,8 @@ namespace IntervalTreeNS
 		public void LeftRotateTwoNodes()
 		{
 			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.____.N(nodeB);
@@ -34,8 +34,8 @@ namespace IntervalTreeNS
 		public void RightRotateTwoNodes()
 		{
 			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.N(nodeA);
@@ -53,13 +53,13 @@ namespace IntervalTreeNS
 		{
 			IntervalTree_ tree = new IntervalTree_();
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_();
-			IntervalNode_ nodeX = new IntervalNode_();
-			IntervalNode_ nodeY = new IntervalNode_();
-			IntervalNode_ nodeZ = new IntervalNode_();
+			IntervalNode_ nodeW = new IntervalNode_("W");
+			IntervalNode_ nodeX = new IntervalNode_("X");
+			IntervalNode_ nodeY = new IntervalNode_("Y");
+			IntervalNode_ nodeZ = new IntervalNode_("Z");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.N(nodeW);
@@ -91,13 +91,13 @@ namespace IntervalTreeNS
 		{
 			IntervalTree_ tree = new IntervalTree_();
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_();
-			IntervalNode_ nodeX = new IntervalNode_();
-			IntervalNode_ nodeY = new IntervalNode_();
-			IntervalNode_ nodeZ = new IntervalNode_();
+			IntervalNode_ nodeW = new IntervalNode_("W");
+			IntervalNode_ nodeX = new IntervalNode_("X");
+			IntervalNode_ nodeY = new IntervalNode_("Y");
+			IntervalNode_ nodeZ = new IntervalNode_("Z");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.N(nodeW);
@@ -128,8 +128,8 @@ namespace IntervalTreeNS
 		public void LeftRotateWithNoRightChildDoesNotRotate()
 		{
 			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.N(nodeA);
@@ -146,8 +146,8 @@ namespace IntervalTreeNS
 		public void RightRotateWithNoLeftChildDoesNotRotate()
 		{
 			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_();
-			IntervalNode_ nodeB = new IntervalNode_();
+			IntervalNode_ nodeA = new IntervalNode_("A");
+			IntervalNode_ nodeB = new IntervalNode_("B");
 
 			TreeBuilder_ b = new TreeBuilder_(tree);
 			b.____.N(nodeB);

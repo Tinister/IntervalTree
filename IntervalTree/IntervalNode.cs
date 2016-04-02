@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace IntervalTreeNS
 {
@@ -15,15 +14,6 @@ namespace IntervalTreeNS
 	{
 		/// <summary>A single sentinel object to use as a null object.</summary>
 		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel;
-
-#if DEBUG
-		/// <summary>Last id given to nodes of this type.</summary>
-		// ReSharper disable once StaticMemberInGenericType
-		private static int lastId = -1;
-		/// <summary>Id of this node.</summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "Can read this id during debug.")]
-		private readonly int id = Interlocked.Increment(ref lastId);
-#endif
 
 		static IntervalNode()
 		{
@@ -51,11 +41,26 @@ namespace IntervalTreeNS
 			Interval = new Interval<TEndpoint>(default(TEndpoint), default(TEndpoint));
 		}
 
+#if DEBUG
+		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class to represent an empty
+		/// node.  Can give it a name for debug help.</summary>
+		/// <param name="name">Name of the node.</param>
+		internal IntervalNode(string name = null)
+		{
+			Name = name;
+		}
+#endif
+
 		/// <summary>Gets the element the node represents.</summary>
 		public TElement Element { get; }
 
 		/// <summary>Gets the interval the node represents.</summary>
 		public IInterval<TEndpoint> Interval { get; }
+
+#if DEBUG
+		/// <summary>Gets the name of the node for debug.</summary>
+		internal string Name { get; }
+#endif
 
 		/// <summary>Gets the color of this node.</summary>
 		internal NodeColor Color { get; private set; } = NodeColor.Black;
@@ -70,7 +75,7 @@ namespace IntervalTreeNS
 		internal IntervalNode<TElement, TEndpoint> Right { get; set; } = Sentinel;
 
 		/// <summary>Gets the maximum value of any endpoint in the subtree.</summary>
-		internal TEndpoint Max { get; private set; } = default(TEndpoint);
+		internal TEndpoint Max { get; private set; }
 	}
 
 	/// <summary>Defines the valid colors of a <see cref="IntervalNode{TElement,TEndpoint}"/>.</summary>
