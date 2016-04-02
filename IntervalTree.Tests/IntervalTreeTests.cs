@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using IntervalTree_ = IntervalTreeNS.IntervalTree<IntervalTreeNS.Interval<int>, int>;
 using IntervalNode_ = IntervalTreeNS.IntervalNode<IntervalTreeNS.Interval<int>, int>;
-using TreeBuilder_ = IntervalTreeNS.TestHelpers.TreeBuilder<IntervalTreeNS.Interval<int>, int>;
+using TreeHelper_ = IntervalTreeNS.TestHelpers.TreeHelper<IntervalTreeNS.Interval<int>, int>;
 
 namespace IntervalTreeNS
 {
@@ -19,15 +19,15 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_("A");
 			IntervalNode_ nodeB = new IntervalNode_("B");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.____.N(nodeB);
 			b.N(nodeA);
 
 			tree.LeftRotate(nodeA);
 
-			Assert.AreSame(nodeB, tree.Root);
-			Assert.AreSame(nodeA, nodeB.Left);
-			Assert.AreSame(nodeB, nodeA.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.N(nodeB);
+			a.____.N(nodeA);
 		}
 
 		[Test]
@@ -37,15 +37,15 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_("A");
 			IntervalNode_ nodeB = new IntervalNode_("B");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.N(nodeA);
 			b.____.N(nodeB);
 
 			tree.RightRotate(nodeA);
 
-			Assert.AreSame(nodeB, tree.Root);
-			Assert.AreSame(nodeA, nodeB.Right);
-			Assert.AreSame(nodeB, nodeA.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.____.N(nodeA);
+			a.N(nodeB);
 		}
 
 		[Test]
@@ -61,7 +61,7 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeY = new IntervalNode_("Y");
 			IntervalNode_ nodeZ = new IntervalNode_("Z");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.N(nodeW);
 			b.____.____.____.N(nodeZ);
 			b.____.____.N(nodeB);
@@ -71,19 +71,13 @@ namespace IntervalTreeNS
 
 			tree.LeftRotate(nodeA);
 
-			Assert.AreSame(nodeW, tree.Root);
-			Assert.AreSame(nodeB, nodeW.Left);
-			Assert.AreSame(nodeW, nodeB.Parent);
-
-			Assert.AreSame(nodeA, nodeB.Left);
-			Assert.AreSame(nodeZ, nodeB.Right);
-			Assert.AreSame(nodeB, nodeA.Parent);
-			Assert.AreSame(nodeB, nodeZ.Parent);
-
-			Assert.AreSame(nodeX, nodeA.Left);
-			Assert.AreSame(nodeY, nodeA.Right);
-			Assert.AreSame(nodeA, nodeX.Parent);
-			Assert.AreSame(nodeA, nodeY.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.N(nodeW);
+			a.____.____.N(nodeZ);
+			a.____.N(nodeB);
+			a.____.____.____.N(nodeY);
+			a.____.____.N(nodeA);
+			a.____.____.____.N(nodeX);
 		}
 
 		[Test]
@@ -99,29 +93,23 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeY = new IntervalNode_("Y");
 			IntervalNode_ nodeZ = new IntervalNode_("Z");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
-			b.N(nodeW);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.____.____.N(nodeX);
 			b.____.N(nodeA);
 			b.____.____.____.N(nodeZ);
 			b.____.____.N(nodeB);
 			b.____.____.____.N(nodeY);
+			b.N(nodeW);
 
 			tree.RightRotate(nodeA);
 
-			Assert.AreSame(nodeW, tree.Root);
-			Assert.AreSame(nodeB, nodeW.Left);
-			Assert.AreSame(nodeW, nodeB.Parent);
-
-			Assert.AreSame(nodeY, nodeB.Left);
-			Assert.AreSame(nodeA, nodeB.Right);
-			Assert.AreSame(nodeB, nodeA.Parent);
-			Assert.AreSame(nodeB, nodeY.Parent);
-
-			Assert.AreSame(nodeZ, nodeA.Left);
-			Assert.AreSame(nodeX, nodeA.Right);
-			Assert.AreSame(nodeA, nodeZ.Parent);
-			Assert.AreSame(nodeA, nodeX.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.____.____.____.N(nodeX);
+			a.____.____.N(nodeA);
+			a.____.____.____.N(nodeZ);
+			a.____.N(nodeB);
+			a.____.____.N(nodeY);
+			a.N(nodeW);
 		}
 
 		[Test]
@@ -131,15 +119,15 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_("A");
 			IntervalNode_ nodeB = new IntervalNode_("B");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.N(nodeA);
 			b.____.N(nodeB);
 
 			tree.LeftRotate(nodeA);
 
-			Assert.AreSame(nodeA, tree.Root);
-			Assert.AreSame(nodeB, nodeA.Left);
-			Assert.AreSame(nodeA, nodeB.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.N(nodeA);
+			a.____.N(nodeB);
 		}
 
 		[Test]
@@ -149,15 +137,15 @@ namespace IntervalTreeNS
 			IntervalNode_ nodeA = new IntervalNode_("A");
 			IntervalNode_ nodeB = new IntervalNode_("B");
 
-			TreeBuilder_ b = new TreeBuilder_(tree);
+			TreeHelper_ b = new TreeHelper_(TreeHelper_.Build, tree);
 			b.____.N(nodeB);
 			b.N(nodeA);
 
 			tree.RightRotate(nodeA);
 
-			Assert.AreSame(nodeA, tree.Root);
-			Assert.AreSame(nodeB, nodeA.Right);
-			Assert.AreSame(nodeA, nodeB.Parent);
+			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
+			a.____.N(nodeB);
+			a.N(nodeA);
 		}
 	}
 }

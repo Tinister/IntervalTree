@@ -57,7 +57,7 @@
     <Compile Include="IntervalTests.cs" />
     <Compile Include="IntervalTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHelpers\TreeBuilder.cs" />
+    <Compile Include="TestHelpers\TreeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
