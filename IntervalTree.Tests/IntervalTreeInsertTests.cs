@@ -13,7 +13,7 @@ namespace IntervalTreeNS
 	public class IntervalTreeInsertTests
 	{
 		[Test]
-		public void RootIsSetIfThereIsntOne()
+		public void RootIsSetIfThereIsNotOne()
 		{
 			IntervalTree_ tree = new IntervalTree_();
 			IntervalNode_ node = new IntervalNode_();
@@ -32,9 +32,9 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(510, 510)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.N(root);
-			a.____.N(node);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.B(root);
+			h.____.B(node);
 		}
 
 		[Test]
@@ -47,9 +47,9 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(515, 515)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.____.N(node);
-			a.N(root);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.____.B(node);
+			h.B(root);
 		}
 
 		[Test]
@@ -66,11 +66,11 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(250, 250)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.____.N(right);
-			a.N(root);
-			a.____.N(left);
-			a.____.____.N(node);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.____.B(right);
+			h.B(root);
+			h.____.B(left);
+			h.____.____.B(node);
 		}
 
 		[Test]
@@ -87,11 +87,11 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(510, 510)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.____.N(right);
-			a.N(root);
-			a.____.____.N(node);
-			a.____.N(left);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.____.B(right);
+			h.B(root);
+			h.____.____.B(node);
+			h.____.B(left);
 		}
 
 		[Test]
@@ -108,11 +108,11 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(515, 515)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.____.N(right);
-			a.____.____.N(node);
-			a.N(root);
-			a.____.N(left);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.____.B(right);
+			h.____.____.B(node);
+			h.B(root);
+			h.____.B(left);
 		}
 
 		[Test]
@@ -129,11 +129,11 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(770, 770)) { Name = "N" };
 			tree.Insert(node);
 
-			TreeHelper_ a = new TreeHelper_(TreeHelper_.Assert, tree);
-			a.____.____.N(node);
-			a.____.N(right);
-			a.N(root);
-			a.____.N(left);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Assert, tree);
+			h.____.____.B(node);
+			h.____.B(right);
+			h.B(root);
+			h.____.B(left);
 		}
 	}
 }

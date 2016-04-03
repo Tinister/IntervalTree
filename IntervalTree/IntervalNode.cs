@@ -55,8 +55,8 @@ namespace IntervalTreeNS
 		internal string Name { get; set; }
 #endif
 
-		/// <summary>Gets the color of this node.</summary>
-		internal NodeColor Color { get; private set; } = NodeColor.Black;
+		/// <summary>Gets or sets the color of this node.</summary>
+		internal NodeColor Color { get; set; } = NodeColor.Black;
 
 		/// <summary>Gets or sets the parent node to this node.</summary>
 		internal IntervalNode<TElement, TEndpoint> Parent { get; set; } = Sentinel;

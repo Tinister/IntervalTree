@@ -18,9 +18,15 @@ namespace IntervalTreeNS.TestHelpers
 		where TEndpoint : IComparable<TEndpoint>
 	{
 		private readonly ITreeActor actor;
+
 		private readonly IntervalTree<TElement, TEndpoint> tree;
-		private readonly Dictionary<int, IntervalNode<TElement, TEndpoint>> needsParent = new Dictionary<int, IntervalNode<TElement, TEndpoint>>();
-		private readonly Dictionary<int, IntervalNode<TElement, TEndpoint>> needsLeftChild = new Dictionary<int, IntervalNode<TElement, TEndpoint>>();
+
+		private readonly Dictionary<int, IntervalNode<TElement, TEndpoint>> needsParent =
+			new Dictionary<int, IntervalNode<TElement, TEndpoint>>();
+
+		private readonly Dictionary<int, IntervalNode<TElement, TEndpoint>> needsLeftChild =
+			new Dictionary<int, IntervalNode<TElement, TEndpoint>>();
+
 		private int depth;
 
 		public TreeHelper(ITreeActor actor, IntervalTree<TElement, TEndpoint> tree)
@@ -33,8 +39,14 @@ namespace IntervalTreeNS.TestHelpers
 		internal interface ITreeActor
 		{
 			void DoRoot(IntervalTree<TElement, TEndpoint> tree, IntervalNode<TElement, TEndpoint> node);
+
 			void DoLeftChild(IntervalNode<TElement, TEndpoint> parent, IntervalNode<TElement, TEndpoint> left);
+
 			void DoRightChild(IntervalNode<TElement, TEndpoint> parent, IntervalNode<TElement, TEndpoint> right);
+
+			void OnBlack(IntervalNode<TElement, TEndpoint> node);
+
+			void OnRed(IntervalNode<TElement, TEndpoint> node);
 		}
 
 		/// <summary>Gets a tree actor that builds a tree.</summary>
@@ -60,26 +72,40 @@ namespace IntervalTreeNS.TestHelpers
 
 		/// <summary>
 		/// Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations prior to this call).
-		/// Will wire up the node based on previous calls to <see cref="N"/></summary>
+		/// Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets the color to black.</summary>
+		/// <param name="node">Node to wire up at the specified depth and set to black.</param>
+		public void B(IntervalNode<TElement, TEndpoint> node)
+		{
+			actor.OnBlack(node);
+			N(node);
+		}
+
+		/// <summary>
+		/// Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations prior to this call).
+		/// Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets the color to black.</summary>
+		/// <param name="node">Node to wire up at the specified depth and set to red.</param>
+		public void R(IntervalNode<TElement, TEndpoint> node)
+		{
+			actor.OnRed(node);
+			N(node);
+		}
+
+		/// <summary>Helper method for <see cref="B"/> and <see cref="R"/> to set the node at the specified depth.</summary>
 		/// <param name="node">Node to wire up at the specified depth.</param>
-		public void N(IntervalNode<TElement, TEndpoint> node)
+		private void N(IntervalNode<TElement, TEndpoint> node)
 		{
 			IntervalNode<TElement, TEndpoint> temp;
 
 			// find parent
 			if (depth == 0)
-			{
 				actor.DoRoot(tree, node);
-			}
 			else if (needsLeftChild.TryGetValue(depth - 1, out temp))
 			{
 				actor.DoLeftChild(temp, node);
 				needsLeftChild.Remove(depth - 1);
 			}
 			else
-			{
 				needsParent[depth] = node;
-			}
 
 			// find right
 			if (needsParent.TryGetValue(depth + 1, out temp))
@@ -120,6 +146,20 @@ namespace IntervalTreeNS.TestHelpers
 				parent.Right = right;
 				right.Parent = parent;
 			}
+
+			public void OnBlack(IntervalNode<TElement, TEndpoint> node)
+			{
+				if (node == null)
+					return;
+				node.Color = NodeColor.Black;
+			}
+
+			public void OnRed(IntervalNode<TElement, TEndpoint> node)
+			{
+				if (node == null)
+					return;
+				node.Color = NodeColor.Red;
+			}
 		}
 
 		/// <summary>Tree actor that asserts a tree was wired up as specified.</summary>
@@ -140,7 +180,8 @@ namespace IntervalTreeNS.TestHelpers
 					throw new ArgumentNullException(nameof(parent));
 				if (left == null)
 					throw new ArgumentNullException(nameof(left));
-				NUnit.Framework.Assert.AreSame(parent.Left, left, $"Expected '{left.Name}' to be the left child of '{parent.Name}'.");
+				NUnit.Framework.Assert.AreSame(
+					parent.Left, left, $"Expected '{left.Name}' to be the left child of '{parent.Name}'.");
 				NUnit.Framework.Assert.AreSame(left.Parent, parent, $"Expected '{parent.Name}' to be the parent of '{left.Name}'.");
 			}
 
@@ -150,8 +191,24 @@ namespace IntervalTreeNS.TestHelpers
 					throw new ArgumentNullException(nameof(parent));
 				if (right == null)
 					throw new ArgumentNullException(nameof(right));
-				NUnit.Framework.Assert.AreSame(parent.Right, right, $"Expected '{right.Name}' to be the left child of '{parent.Name}'.");
-				NUnit.Framework.Assert.AreSame(right.Parent, parent, $"Expected '{parent.Name}' to be the parent of '{right.Name}'.");
+				NUnit.Framework.Assert.AreSame(
+					parent.Right, right, $"Expected '{right.Name}' to be the left child of '{parent.Name}'.");
+				NUnit.Framework.Assert.AreSame(
+					right.Parent, parent, $"Expected '{parent.Name}' to be the parent of '{right.Name}'.");
+			}
+
+			public void OnBlack(IntervalNode<TElement, TEndpoint> node)
+			{
+				if (node == null)
+					throw new ArgumentNullException(nameof(node));
+				NUnit.Framework.Assert.AreEqual(NodeColor.Black, node.Color, $"Expected '{node.Name}' to be black.");
+			}
+
+			public void OnRed(IntervalNode<TElement, TEndpoint> node)
+			{
+				if (node == null)
+					throw new ArgumentNullException(nameof(node));
+				NUnit.Framework.Assert.AreEqual(NodeColor.Black, node.Color, $"Expected '{node.Name}' to be red.");
 			}
 		}
 	}
