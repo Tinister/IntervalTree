@@ -69,10 +69,10 @@ namespace IntervalTreeNS
 		/// <summary>Gets or sets the right child node to this node.</summary>
 		internal IntervalNode<TElement, TEndpoint> Right { get; set; } = Sentinel;
 
-		/// <summary>Gets the maximum value of any endpoint in the subtree.</summary>
-		internal TEndpoint Max { get; private set; }
+		/// <summary>Gets or sets the maximum value of any endpoint in the subtree.</summary>
+		internal TEndpoint Max { get; set; }
 
-		/// <summary>Updates the max </summary>
+		/// <summary>Updates <see cref="Max"/> by checking the actual maximum between itself and its direct children.</summary>
 		internal void UpdateMax()
 		{
 			TEndpoint max = Interval.End;

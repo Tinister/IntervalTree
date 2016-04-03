@@ -163,13 +163,11 @@ namespace IntervalTreeNS
 		[Test]
 		public void LeftRotateNoChildrenUpdatesMax()
 		{
-			// ReSharper disable once JoinDeclarationAndInitializer
-			TreeHelper_ h;
 			IntervalTree_ tree = new IntervalTree_();
 			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(2, 5)) { Name = "A" };
 			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(1, 4)) { Name = "B" };
 
-			h = new TreeHelper_(TreeHelper_.Build, tree);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.B(nodeB);
 			h.B(nodeA);
 
@@ -182,13 +180,11 @@ namespace IntervalTreeNS
 		[Test]
 		public void RightRotateNoChildrenUpdatesMax()
 		{
-			// ReSharper disable once JoinDeclarationAndInitializer
-			TreeHelper_ h;
 			IntervalTree_ tree = new IntervalTree_();
 			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(2, 5)) { Name = "A" };
 			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(1, 4)) { Name = "B" };
 
-			h = new TreeHelper_(TreeHelper_.Build, tree);
+			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeA);
 			h.____.B(nodeB);
 

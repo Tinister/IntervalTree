@@ -25,6 +25,8 @@ namespace IntervalTreeNS
 		{
 			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item);
 			Insert(node);
+			node.Color = NodeColor.Red;
+			InsertFixup(node);
 		}
 
 		/// <summary>Performs a left rotation operation on the specified node.</summary>
@@ -94,6 +96,8 @@ namespace IntervalTreeNS
 			while (curr != Sentinel)
 			{
 				leaf = curr;
+				if (Comparer<TEndpoint>.Default.Compare(node.Max, curr.Max) > 0) // update the max on our way down
+					curr.Max = node.Max;
 				curr = Comparer<TEndpoint>.Default.Compare(node.Interval.Start, curr.Interval.Start) < 0 ? curr.Left : curr.Right;
 			}
 
@@ -104,6 +108,60 @@ namespace IntervalTreeNS
 				leaf.Left = node;
 			else
 				leaf.Right = node;
+		}
+
+		/// <summary>Fixes up the tree based on red/black violations.</summary>
+		/// <param name="node">Red node to look at.</param>
+		internal void InsertFixup(IntervalNode<TElement, TEndpoint> node)
+		{
+			while (node.Parent.Color == NodeColor.Red)
+			{
+				if (node.Parent == node.Parent.Parent.Left)
+				{
+					IntervalNode<TElement, TEndpoint> uncle = node.Parent.Parent.Right;
+					if (uncle.Color == NodeColor.Red)
+					{
+						node.Parent.Color = NodeColor.Black;
+						uncle.Color = NodeColor.Black;
+						node.Parent.Parent.Color = NodeColor.Red;
+						node = node.Parent.Parent;
+					}
+					else
+					{
+						if (node == node.Parent.Right)
+						{
+							node = node.Parent;
+							LeftRotate(node);
+						}
+						node.Parent.Color = NodeColor.Black;
+						node.Parent.Parent.Color = NodeColor.Red;
+						RightRotate(node.Parent.Parent);
+					}
+				}
+				else // if (node.Parent == node.Parent.Parent.Right)
+				{
+					IntervalNode<TElement, TEndpoint> uncle = node.Parent.Parent.Left;
+					if (uncle.Color == NodeColor.Red)
+					{
+						node.Parent.Color = NodeColor.Black;
+						uncle.Color = NodeColor.Black;
+						node.Parent.Parent.Color = NodeColor.Red;
+						node = node.Parent.Parent;
+					}
+					else
+					{
+						if (node == node.Parent.Left)
+						{
+							node = node.Parent;
+							RightRotate(node);
+						}
+						node.Parent.Color = NodeColor.Black;
+						node.Parent.Parent.Color = NodeColor.Red;
+						LeftRotate(node.Parent.Parent);
+					}
+				}
+			}
+			Root.Color = NodeColor.Black;
 		}
 	}
 }

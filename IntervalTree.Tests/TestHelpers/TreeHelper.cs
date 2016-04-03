@@ -218,7 +218,7 @@ namespace IntervalTreeNS.TestHelpers
 			{
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
-				NUnit.Framework.Assert.AreEqual(NodeColor.Black, node.Color, $"Expected '{node.Name}' to be red.");
+				NUnit.Framework.Assert.AreEqual(NodeColor.Red, node.Color, $"Expected '{node.Name}' to be red.");
 			}
 		}
 	}
