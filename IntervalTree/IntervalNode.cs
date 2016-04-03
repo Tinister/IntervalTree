@@ -31,6 +31,8 @@ namespace IntervalTreeNS
 		/// <param name="element">The element the node represents.</param>
 		public IntervalNode(TElement element)
 		{
+			if (element == null)
+				throw new ArgumentNullException(nameof(element));
 			Element = element;
 			Interval = new Interval<TEndpoint>(element); // create a copy of the interval in case TElement changes...
 			Max = Interval.End;
@@ -69,6 +71,17 @@ namespace IntervalTreeNS
 
 		/// <summary>Gets the maximum value of any endpoint in the subtree.</summary>
 		internal TEndpoint Max { get; private set; }
+
+		/// <summary>Updates the max </summary>
+		internal void UpdateMax()
+		{
+			TEndpoint max = Interval.End;
+			if (Left != Sentinel && Comparer<TEndpoint>.Default.Compare(Left.Max, max) > 0)
+				max = Left.Max;
+			if (Right != Sentinel && Comparer<TEndpoint>.Default.Compare(Right.Max, max) > 0)
+				max = Right.Max;
+			Max = max;
+		}
 	}
 
 	/// <summary>Defines the valid colors of a <see cref="IntervalNode{TElement,TEndpoint}"/>.</summary>

@@ -49,6 +49,10 @@ namespace IntervalTreeNS
 
 			temp.Left = node;
 			node.Parent = temp;
+
+			node.UpdateMax();
+			temp.UpdateMax();
+			// don't need to continue up the tree as its subtree didn't change
 		}
 
 		/// <summary>Performs a right rotation operation on the specified node.</summary>
@@ -73,6 +77,10 @@ namespace IntervalTreeNS
 
 			temp.Right = node;
 			node.Parent = temp;
+
+			node.UpdateMax();
+			temp.UpdateMax();
+			// don't need to continue up the tree as its subtree didn't change
 		}
 
 		/// <summary>Inserts the node into the tree.</summary>

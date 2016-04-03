@@ -137,6 +137,11 @@ namespace IntervalTreeNS.TestHelpers
 					return;
 				parent.Left = left;
 				left.Parent = parent;
+				while (parent != IntervalNode<TElement, TEndpoint>.Sentinel)
+				{
+					parent.UpdateMax();
+					parent = parent.Parent;
+				}
 			}
 
 			public void DoRightChild(IntervalNode<TElement, TEndpoint> parent, IntervalNode<TElement, TEndpoint> right)
@@ -145,6 +150,11 @@ namespace IntervalTreeNS.TestHelpers
 					return;
 				parent.Right = right;
 				right.Parent = parent;
+				while (parent != IntervalNode<TElement, TEndpoint>.Sentinel)
+				{
+					parent.UpdateMax();
+					parent = parent.Parent;
+				}
 			}
 
 			public void OnBlack(IntervalNode<TElement, TEndpoint> node)
