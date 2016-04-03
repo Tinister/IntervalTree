@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="IntervalTests.cs" />
     <Compile Include="IntervalTreeInsertTests.cs" />
-    <Compile Include="IntervalTreeTests.cs" />
+    <Compile Include="IntervalTreeRotateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\TreeHelper.cs" />
   </ItemGroup>

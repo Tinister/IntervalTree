@@ -10,7 +10,7 @@ using TreeHelper_ = IntervalTreeNS.TestHelpers.TreeHelper<IntervalTreeNS.Interva
 namespace IntervalTreeNS
 {
 	[TestFixture]
-	public class IntervalTreeTests
+	public class IntervalTreeRotateTests
 	{
 		[Test]
 		public void LeftRotateTwoNodes()
