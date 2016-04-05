@@ -21,12 +21,14 @@ namespace IntervalTreeNS
 
 		/// <summary>Adds the specified item to the interval tree.</summary>
 		/// <param name="item">Item to add.</param>
-		public void Add(TElement item)
+		/// <returns>The node added to the tree that contains this item.</returns>
+		public IIntervalNode<TElement> Add(TElement item)
 		{
-			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item);
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
 			Insert(node);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
+			return node;
 		}
 
 		/// <summary>Performs a left rotation operation on the specified node.</summary>

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace IntervalTreeNS
 {
-	/// <summary>Represents the node in an <see cref="IntervalTree{TElement,TEndpoint}"/>.</summary>
-	/// <typeparam name="TElement">The type of elements in the node.</typeparam>
-	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	internal sealed class IntervalNode<TElement, TEndpoint>
+	/// <summary>Represents a node in an <see cref="IntervalTree{TElement,TEndpoint}"/>.</summary>
+	/// <typeparam name="TElement">The type of element in the node.</typeparam>
+	/// <typeparam name="TEndpoint">The type of the endpoints of the interval the element represents.</typeparam>
+	internal sealed class IntervalNode<TElement, TEndpoint> : IIntervalNode<TElement>
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
@@ -52,10 +53,22 @@ namespace IntervalTreeNS
 		/// <summary>Gets the interval the node represents.</summary>
 		public IInterval<TEndpoint> Interval { get; }
 
+		/// <summary>Gets the parent node to this node.</summary>
+		IIntervalNode<TElement> IIntervalNode<TElement>.Parent => Parent == Sentinel ? null : Parent;
+
+		/// <summary>Gets the left child node to this node.</summary>
+		IIntervalNode<TElement> IIntervalNode<TElement>.Left => Left == Sentinel ? null : Left;
+
+		/// <summary>Gets the right child node to this node.</summary>
+		IIntervalNode<TElement> IIntervalNode<TElement>.Right => Right == Sentinel ? null : Right;
+
 #if DEBUG
 		/// <summary>Gets or sets the name of the node for debug.</summary>
 		internal string Name { get; set; }
 #endif
+
+		/// <summary>Gets or sets the tree this node belongs to.</summary>
+		internal IntervalTree<TElement, TEndpoint> Tree { get; set; }
 
 		/// <summary>Gets or sets the color of this node.</summary>
 		internal NodeColor Color { get; set; } = NodeColor.Black;
@@ -92,5 +105,23 @@ namespace IntervalTreeNS
 
 		/// <summary>Represents the color red.</summary>
 		Red
+	}
+
+	/// <summary>Represents a node in an <see cref="IntervalTree{TElement,TEndpoint}"/>.</summary>
+	/// <typeparam name="TElement">The type of element in the node.</typeparam>
+	// ReSharper disable once TypeParameterCanBeVariant
+	public interface IIntervalNode<TElement>
+	{
+		/// <summary>Gets the element the node represents.</summary>
+		TElement Element { get; }
+
+		/// <summary>Gets the parent node to this node.</summary>
+		IIntervalNode<TElement> Parent { get; }
+
+		/// <summary>Gets the left child node to this node.</summary>
+		IIntervalNode<TElement> Left { get; }
+
+		/// <summary>Gets the right child node to this node.</summary>
+		IIntervalNode<TElement> Right { get; }
 	}
 }
