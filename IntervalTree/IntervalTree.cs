@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace IntervalTreeNS
 	/// <summary>Represents a strongly-typed collection of objects that can be represented by intervals.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	public class IntervalTree<TElement, TEndpoint>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "'Tree' is already a sufficient suffix.")]
+	public class IntervalTree<TElement, TEndpoint> : IEnumerable<TElement>
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
@@ -19,17 +21,29 @@ namespace IntervalTreeNS
 		/// <summary>Gets or sets the root of the tree.</summary>
 		internal IntervalNode<TElement, TEndpoint> Root { get; set; } = Sentinel;
 
+		/// <summary>Gets the current version of the tree.</summary>
+		internal int Version { get; private set; }
+
 		/// <summary>Adds the specified item to the interval tree.</summary>
 		/// <param name="item">Item to add.</param>
 		/// <returns>The node added to the tree that contains this item.</returns>
 		public IIntervalNode<TElement> Add(TElement item)
 		{
+			Version++;
 			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
 			Insert(node);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
 			return node;
 		}
+
+		/// <summary>Returns an enumerator that iterates through the collection.</summary>
+		/// <returns>A <see cref="IEnumerator{TElement}"/> that can be used to iterate through the collection.</returns>
+		public IEnumerator<TElement> GetEnumerator() => new IntervalTreeEnumerator<TElement, TEndpoint>(this);
+
+		/// <summary>Returns an enumerator that iterates through a collection.</summary>
+		/// <returns>An <see cref="IEnumerator"/> object that can be used to iterate through the collection.</returns>
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Performs a left rotation operation on the specified node.</summary>
 		/// <param name="node">Node to perform a left rotation on.</param>
