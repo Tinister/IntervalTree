@@ -35,7 +35,7 @@ namespace IntervalTreeNS
 		{
 			this.tree = tree;
 			version = tree.Version;
-			FillStack(tree.Root);
+			FillStack(tree.IRoot);
 		}
 
 		/// <summary>Gets the element in the collection at the current position of the enumerator.</summary>

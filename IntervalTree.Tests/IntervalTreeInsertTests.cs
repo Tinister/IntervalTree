@@ -20,7 +20,7 @@ namespace IntervalTreeNS
 			IntervalNode_ node = new IntervalNode_();
 
 			tree.Insert(node);
-			Assert.AreSame(node, tree.Root);
+			Assert.AreSame(node, tree.IRoot);
 		}
 
 		[Test]
@@ -28,7 +28,7 @@ namespace IntervalTreeNS
 		{
 			IntervalTree_ tree = new IntervalTree_();
 			IntervalNode_ root = new IntervalNode_(new Interval<int>(512, 512)) { Name = "X" };
-			tree.Root = root;
+			tree.IRoot = root;
 
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(510, 510)) { Name = "N" };
 			tree.Insert(node);
@@ -43,7 +43,7 @@ namespace IntervalTreeNS
 		{
 			IntervalTree_ tree = new IntervalTree_();
 			IntervalNode_ root = new IntervalNode_(new Interval<int>(512, 512)) { Name = "X" };
-			tree.Root = root;
+			tree.IRoot = root;
 
 			IntervalNode_ node = new IntervalNode_(new Interval<int>(515, 515)) { Name = "N" };
 			tree.Insert(node);

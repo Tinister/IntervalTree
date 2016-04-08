@@ -18,8 +18,12 @@ namespace IntervalTreeNS
 		/// <remarks>Same reference as <see cref="IntervalNode{TElement,TEndpoint}.Sentinel"/> to prevent excessive typing.</remarks>
 		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel = IntervalNode<TElement, TEndpoint>.Sentinel;
 
-		/// <summary>Gets or sets the root of the tree.</summary>
-		internal IntervalNode<TElement, TEndpoint> Root { get; set; } = Sentinel;
+		/// <summary>Gets the root node of the tree.</summary>
+		public IIntervalNode<TElement> Root => IRoot;
+
+		/// <summary>Gets or sets the root node of the tree.</summary>
+		// ReSharper disable once InconsistentNaming
+		internal IntervalNode<TElement, TEndpoint> IRoot { get; set; } = Sentinel;
 
 		/// <summary>Gets the current version of the tree.</summary>
 		internal int Version { get; private set; }
@@ -59,7 +63,7 @@ namespace IntervalTreeNS
 
 			temp.Parent = node.Parent;
 			if (node.Parent == Sentinel)
-				Root = temp;
+				IRoot = temp;
 			else if (node == node.Parent.Left)
 				node.Parent.Left = temp;
 			else
@@ -87,7 +91,7 @@ namespace IntervalTreeNS
 
 			temp.Parent = node.Parent;
 			if (node.Parent == Sentinel)
-				Root = temp;
+				IRoot = temp;
 			else if (node == node.Parent.Left)
 				node.Parent.Left = temp;
 			else
@@ -108,7 +112,7 @@ namespace IntervalTreeNS
 			IntervalNode<TElement, TEndpoint> leaf = Sentinel;
 
 			// find the proper leaf node
-			IntervalNode<TElement, TEndpoint> curr = Root;
+			IntervalNode<TElement, TEndpoint> curr = IRoot;
 			while (curr != Sentinel)
 			{
 				leaf = curr;
@@ -119,7 +123,7 @@ namespace IntervalTreeNS
 
 			node.Parent = leaf;
 			if (leaf == Sentinel)
-				Root = node;
+				IRoot = node;
 			else if (Comparer<TEndpoint>.Default.Compare(node.Interval.Start, leaf.Interval.Start) < 0)
 				leaf.Left = node;
 			else
@@ -177,7 +181,7 @@ namespace IntervalTreeNS
 					}
 				}
 			}
-			Root.Color = NodeColor.Black;
+			IRoot.Color = NodeColor.Black;
 		}
 	}
 }

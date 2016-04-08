@@ -132,7 +132,7 @@ namespace IntervalTreeNS.TestHelpers
 			{
 				if (tree == null || node == null)
 					return;
-				tree.Root = node;
+				tree.IRoot = node;
 			}
 
 			public void DoLeftChild(IntervalNode<TElement, TEndpoint> parent, IntervalNode<TElement, TEndpoint> left)
@@ -185,7 +185,7 @@ namespace IntervalTreeNS.TestHelpers
 					throw new ArgumentNullException(nameof(tree));
 				if (node == null)
 					throw new ArgumentNullException(nameof(node));
-				NUnit.Framework.Assert.AreSame(tree.Root, node, $"Expected '{node.Name}' to be the root of the tree.");
+				NUnit.Framework.Assert.AreSame(tree.IRoot, node, $"Expected '{node.Name}' to be the root of the tree.");
 			}
 
 			public void DoLeftChild(IntervalNode<TElement, TEndpoint> parent, IntervalNode<TElement, TEndpoint> left)
