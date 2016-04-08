@@ -78,6 +78,8 @@ namespace IntervalTreeNS
 		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
 		void IDisposable.Dispose()
 		{
+			currentNode = Sentinel;
+			stack = null;
 		}
 
 		/// <summary>Fills the stack with the node and the left child of the node (repeat).</summary>

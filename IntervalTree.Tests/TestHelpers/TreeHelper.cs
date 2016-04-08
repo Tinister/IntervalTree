@@ -29,6 +29,8 @@ namespace IntervalTreeNS.TestHelpers
 
 		private int depth;
 
+		private int maxDepth;
+
 		public TreeHelper(ITreeActor actor, IntervalTree<TElement, TEndpoint> tree)
 		{
 			this.actor = actor;
@@ -65,6 +67,7 @@ namespace IntervalTreeNS.TestHelpers
 			get
 			{
 				depth++;
+				maxDepth = Math.Max(depth, maxDepth);
 				return this;
 			}
 		}
@@ -112,7 +115,8 @@ namespace IntervalTreeNS.TestHelpers
 			{
 				actor.DoRightChild(node, temp);
 				needsParent.Remove(depth + 1);
-				needsLeftChild.Remove(depth + 1); // doesn't have a left child
+				for (int i = maxDepth; i > depth; i--)
+					needsLeftChild.Remove(i); // any previous nodes of any further depth don't have left children
 			}
 
 			// mark as needing left (will come at next time this method is called).
