@@ -136,49 +136,44 @@ namespace IntervalTreeNS
 		{
 			while (node.Parent.Color == NodeColor.Red)
 			{
+				// set up some variables for symmetric algorithm
+				IntervalNode<TElement, TEndpoint> uncle;
+				bool isUncleSideChild;
+				Action<IntervalNode<TElement, TEndpoint>> rotateAwayFromUncle;
+				Action<IntervalNode<TElement, TEndpoint>> rotateTowardsUncle;
 				if (node.Parent == node.Parent.Parent.Left)
 				{
-					IntervalNode<TElement, TEndpoint> uncle = node.Parent.Parent.Right;
-					if (uncle.Color == NodeColor.Red)
-					{
-						node.Parent.Color = NodeColor.Black;
-						uncle.Color = NodeColor.Black;
-						node.Parent.Parent.Color = NodeColor.Red;
-						node = node.Parent.Parent;
-					}
-					else
-					{
-						if (node == node.Parent.Right)
-						{
-							node = node.Parent;
-							LeftRotate(node);
-						}
-						node.Parent.Color = NodeColor.Black;
-						node.Parent.Parent.Color = NodeColor.Red;
-						RightRotate(node.Parent.Parent);
-					}
+					uncle = node.Parent.Parent.Right;
+					isUncleSideChild = node == node.Parent.Right;
+					rotateAwayFromUncle = LeftRotate;
+					rotateTowardsUncle = RightRotate;
 				}
 				else // if (node.Parent == node.Parent.Parent.Right)
 				{
-					IntervalNode<TElement, TEndpoint> uncle = node.Parent.Parent.Left;
-					if (uncle.Color == NodeColor.Red)
+					uncle = node.Parent.Parent.Left;
+					isUncleSideChild = node == node.Parent.Left;
+					rotateAwayFromUncle = RightRotate;
+					rotateTowardsUncle = LeftRotate;
+				}
+
+				// algorithm start
+				if (uncle.Color == NodeColor.Red) // if uncle is red we can just recolor nodes and then check again at the grandparent
+				{
+					node.Parent.Color = NodeColor.Black;
+					uncle.Color = NodeColor.Black;
+					node.Parent.Parent.Color = NodeColor.Red;
+					node = node.Parent.Parent;
+				}
+				else // otherwise we will need to do some rotations to rebalance the tree
+				{
+					if (isUncleSideChild)
 					{
-						node.Parent.Color = NodeColor.Black;
-						uncle.Color = NodeColor.Black;
-						node.Parent.Parent.Color = NodeColor.Red;
-						node = node.Parent.Parent;
+						node = node.Parent;
+						rotateAwayFromUncle(node);
 					}
-					else
-					{
-						if (node == node.Parent.Left)
-						{
-							node = node.Parent;
-							RightRotate(node);
-						}
-						node.Parent.Color = NodeColor.Black;
-						node.Parent.Parent.Color = NodeColor.Red;
-						LeftRotate(node.Parent.Parent);
-					}
+					node.Parent.Color = NodeColor.Black;
+					node.Parent.Parent.Color = NodeColor.Red;
+					rotateTowardsUncle(node.Parent.Parent);
 				}
 			}
 			IRoot.Color = NodeColor.Black;
