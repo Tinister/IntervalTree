@@ -6,11 +6,10 @@ using System.Text;
 namespace IntervalTreeNS.TestHelpers
 {
 	/// <summary>Helper class for building or verifying a tree.</summary>
-	/// <remarks>
-	/// Only manipulates the
-	/// <see cref="IntervalNode{TElement,TEndpoint}.Parent"/>, <see cref="IntervalNode{TElement,TEndpoint}.Left"/> and <see cref="IntervalNode{TElement,TEndpoint}.Right"/>
-	/// fields directly.  Useful for wiring up those fields while making it look like an actual tree in the source code. =)
-	/// </remarks>
+	/// <remarks>Only manipulates the
+	/// <see cref="IntervalNode{TElement,TEndpoint}.Parent"/>, <see cref="IntervalNode{TElement,TEndpoint}.Left"/> and
+	/// <see cref="IntervalNode{TElement,TEndpoint}.Right"/>
+	/// fields directly.  Useful for wiring up those fields while making it look like an actual tree in the source code. =)</remarks>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
 	internal sealed class TreeHelper<TElement, TEndpoint>
@@ -58,10 +57,8 @@ namespace IntervalTreeNS.TestHelpers
 		public static ITreeActor Assert => new AssertActor();
 
 #pragma warning disable SA1300 // Element must begin with upper-case letter
-		/// <summary>
-		/// Gets this <see cref="TreeHelper{TElement,TEndpoint}"/> instance but with the tracked depth incremented.
-		/// Represents a "space" in the tree.
-		/// </summary>
+		/// <summary>Gets this <see cref="TreeHelper{TElement,TEndpoint}"/> instance but with the tracked depth incremented.
+		/// Represents a "space" in the tree.</summary>
 		public TreeHelper<TElement, TEndpoint> ____
 		{
 			get
@@ -73,9 +70,9 @@ namespace IntervalTreeNS.TestHelpers
 		}
 #pragma warning restore SA1300 // Element must begin with upper-case letter
 
-		/// <summary>
-		/// Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations prior to this call).
-		/// Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets the color to black.</summary>
+		/// <summary>Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations
+		/// prior to this call). Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets
+		/// the color to black.</summary>
 		/// <param name="node">Node to wire up at the specified depth and set to black.</param>
 		public void B(IntervalNode<TElement, TEndpoint> node)
 		{
@@ -83,9 +80,9 @@ namespace IntervalTreeNS.TestHelpers
 			N(node);
 		}
 
-		/// <summary>
-		/// Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations prior to this call).
-		/// Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets the color to black.</summary>
+		/// <summary>Set the specified node at the specified depth (where depth is the number of <see cref="____"/> invocations
+		/// prior to this call). Will wire up the node based on previous calls to <see cref="B"/> or <see cref="R"/>.  Also sets
+		/// the color to black.</summary>
 		/// <param name="node">Node to wire up at the specified depth and set to red.</param>
 		public void R(IntervalNode<TElement, TEndpoint> node)
 		{

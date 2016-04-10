@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -9,7 +10,8 @@ namespace IntervalTreeNS
 	/// <summary>Represents a strongly-typed collection of objects that can be represented by intervals.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "'Tree' is already a sufficient suffix.")]
+	[SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix",
+		Justification = "'Tree' is already a sufficient suffix.")]
 	public class IntervalTree<TElement, TEndpoint> : IEnumerable<TElement>
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
@@ -102,7 +104,7 @@ namespace IntervalTreeNS
 
 			node.UpdateMax();
 			temp.UpdateMax();
-			// don't need to continue up the tree as its subtree didn't change
+			// don't need to continue doing `UpdateMax` up the tree as parent's subtree didn't change
 		}
 
 		/// <summary>Inserts the node into the tree.</summary>
@@ -157,7 +159,8 @@ namespace IntervalTreeNS
 				}
 
 				// algorithm start
-				if (uncle.Color == NodeColor.Red) // if uncle is red we can just recolor nodes and then check again at the grandparent
+				if (uncle.Color == NodeColor.Red)
+					// if uncle is red we can just recolor nodes and then check again at the grandparent
 				{
 					node.Parent.Color = NodeColor.Black;
 					uncle.Color = NodeColor.Black;
