@@ -38,6 +38,7 @@ namespace IntervalTreeNS
 
 			Interval<int>[] intervals = tree.ToArray();
 
+			Assert.Greater(intervals.Length, 0);
 			for (int i = 0; i < intervals.Length; i++)
 				Assert.AreEqual(i, intervals[i].Start, $"Intervals at index {i} differ.");
 		}
@@ -68,6 +69,7 @@ namespace IntervalTreeNS
 
 			Interval<int>[] intervals = tree.ToArray();
 
+			Assert.Greater(intervals.Length, 0);
 			for (int i = 0; i < intervals.Length; i++)
 				Assert.AreEqual(i, intervals[i].Start, $"Intervals at index {i} differ.");
 		}
@@ -98,6 +100,7 @@ namespace IntervalTreeNS
 
 			Interval<int>[] intervals = tree.ToArray();
 
+			Assert.Greater(intervals.Length, 0);
 			for (int i = 0; i < intervals.Length; i++)
 				Assert.AreEqual(i, intervals[i].Start, $"Intervals at index {i} differ.");
 		}
