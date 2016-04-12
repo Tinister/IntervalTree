@@ -11,7 +11,7 @@ namespace IntervalTreeNS
 	/// <summary>Class for enumerating an <see cref="IntervalTree{TElement,TEndpoint}"/>.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	internal class IntervalTreeEnumerator<TElement, TEndpoint> : IEnumerable<TElement>, IEnumerator<TElement>
+	internal class InOrderEnumerator<TElement, TEndpoint> : IEnumerable<TElement>, IEnumerator<TElement>
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
@@ -38,11 +38,11 @@ namespace IntervalTreeNS
 		/// <summary>Node we moved to.</summary>
 		private IntervalNode<TElement, TEndpoint> currentNode = Sentinel;
 
-		/// <summary>Initializes a new instance of the <see cref="IntervalTreeEnumerator{TElement, TEndpoint}"/> class. </summary>
+		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class. </summary>
 		/// <param name="tree">Tree enumerating.</param>
 		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state.
 		/// Otherwise it will be in its <see cref="IEnumerable"/> state.</param>
-		internal IntervalTreeEnumerator(IntervalTree<TElement, TEndpoint> tree, bool asEnumerator = false)
+		internal InOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, bool asEnumerator = false)
 		{
 			initialThreadId = Thread.CurrentThread.ManagedThreadId;
 			this.tree = tree;
@@ -82,7 +82,7 @@ namespace IntervalTreeNS
 				stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 				return this; // no extra object instantiation
 			}
-			return new IntervalTreeEnumerator<TElement, TEndpoint>(tree, true);
+			return new InOrderEnumerator<TElement, TEndpoint>(tree, true);
 		}
 
 		/// <summary>Advances the enumerator to the next element of the collection.</summary>
