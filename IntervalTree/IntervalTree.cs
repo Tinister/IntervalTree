@@ -45,8 +45,14 @@ namespace IntervalTreeNS
 
 		/// <summary>Returns an enumerator that iterates through all elements that intersect the specified interval.</summary>
 		/// <param name="interval">Interval to use to find all intersecting elements.</param>
+		/// <param name="alsoAdjacent">Set to true to also get all adjacent intervals.</param>
 		/// <returns>An enumerator for all intersecting elements.</returns>
-		public IEnumerable<TElement> FindAllIntersecting(IInterval<TEndpoint> interval) => new IntersectingEnumerator<TElement, TEndpoint>(this, interval);
+		[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope",
+			Justification = "Just some oddness with the IEnumerable/IEnumerator duality.")]
+		public IEnumerable<TElement> FindAllIntersecting(IInterval<TEndpoint> interval, bool alsoAdjacent = false)
+		{
+			return new IntersectingEnumerator<TElement, TEndpoint>(this, interval, alsoAdjacent);
+		}
 
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
 		/// <returns>A <see cref="IEnumerator{TElement}"/> that can be used to iterate through the collection.</returns>

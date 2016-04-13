@@ -138,13 +138,13 @@ namespace IntervalTreeNS
 		}
 
 		/// <summary>Clone the current instance as an <see cref="IEnumerator{TElement}"/> instance.</summary>
-		/// <param name="tree">Tree enumerating.</param>
+		/// <param name="originalTree">Original tree enumerating.</param>
 		/// <returns>This instance cloned.</returns>
 		// ReSharper disable once ParameterHidesMember
-		protected virtual IEnumerator<TElement> CloneAsEnumerator(IntervalTree<TElement, TEndpoint> tree)
+		protected virtual IEnumerator<TElement> CloneAsEnumerator(IntervalTree<TElement, TEndpoint> originalTree)
 		{
 			// it's cumpulsory that derived types override this =/
-			return new InOrderEnumerator<TElement, TEndpoint>(tree, true);
+			return new InOrderEnumerator<TElement, TEndpoint>(originalTree, true);
 		}
 
 		/// <summary>Determine whether the enumerator continue down the left side of the specified subtree.</summary>
