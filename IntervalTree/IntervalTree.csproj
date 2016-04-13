@@ -49,6 +49,7 @@
     <Compile Include="IntervalNode.cs" />
     <Compile Include="IntervalTree.cs" />
     <Compile Include="InOrderEnumerator.cs" />
+    <Compile Include="IntersectingEnumerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

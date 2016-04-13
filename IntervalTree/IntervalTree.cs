@@ -43,6 +43,11 @@ namespace IntervalTreeNS
 			return node;
 		}
 
+		/// <summary>Returns an enumerator that iterates through all elements that intersect the specified interval.</summary>
+		/// <param name="interval">Interval to use to find all intersecting elements.</param>
+		/// <returns>An enumerator for all intersecting elements.</returns>
+		public IEnumerable<TElement> FindAllIntersecting(IInterval<TEndpoint> interval) => new IntersectingEnumerator<TElement, TEndpoint>(this, interval);
+
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
 		/// <returns>A <see cref="IEnumerator{TElement}"/> that can be used to iterate through the collection.</returns>
 		public IEnumerator<TElement> GetEnumerator() => new InOrderEnumerator<TElement, TEndpoint>(this, true);

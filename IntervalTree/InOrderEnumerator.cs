@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -40,8 +39,8 @@ namespace IntervalTreeNS
 
 		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class. </summary>
 		/// <param name="tree">Tree enumerating.</param>
-		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state.
-		/// Otherwise it will be in its <see cref="IEnumerable"/> state.</param>
+		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state. Otherwise it
+		/// will be in its <see cref="IEnumerable"/> state.</param>
 		internal InOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, bool asEnumerator = false)
 		{
 			initialThreadId = Thread.CurrentThread.ManagedThreadId;
@@ -82,7 +81,7 @@ namespace IntervalTreeNS
 				stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 				return this; // no extra object instantiation
 			}
-			return new InOrderEnumerator<TElement, TEndpoint>(tree, true);
+			return CloneAsEnumerator(tree);
 		}
 
 		/// <summary>Advances the enumerator to the next element of the collection.</summary>
@@ -136,6 +135,16 @@ namespace IntervalTreeNS
 				else
 					break;
 			}
+		}
+
+		/// <summary>Clone the current instance as an <see cref="IEnumerator{TElement}"/> instance.</summary>
+		/// <param name="tree">Tree enumerating.</param>
+		/// <returns>This instance cloned.</returns>
+		// ReSharper disable once ParameterHidesMember
+		protected virtual IEnumerator<TElement> CloneAsEnumerator(IntervalTree<TElement, TEndpoint> tree)
+		{
+			// it's cumpulsory that derived types override this =/
+			return new InOrderEnumerator<TElement, TEndpoint>(tree, true);
 		}
 
 		/// <summary>Determine whether the enumerator continue down the left side of the specified subtree.</summary>
