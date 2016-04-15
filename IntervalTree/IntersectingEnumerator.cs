@@ -14,9 +14,6 @@ namespace IntervalTreeNS
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
-		/// <summary>Interval to find all intersecting elements for.</summary>
-		private readonly IInterval<TEndpoint> interval;
-
 		/// <summary>Set to true to also get adjacent intervals.</summary>
 		private readonly bool alsoAdjacent;
 
@@ -31,16 +28,28 @@ namespace IntervalTreeNS
 			bool asEnumerator = false)
 			: base(tree, asEnumerator)
 		{
-			this.interval = new Interval<TEndpoint>(interval);
+			Interval = new Interval<TEndpoint>(interval);
 			this.alsoAdjacent = alsoAdjacent;
 		}
 
-		/// <summary>Clone the current instance as an <see cref="IEnumerator{TElement}"/> instance.</summary>
-		/// <param name="originalTree">Original tree enumerating.</param>
-		/// <returns>This instance cloned.</returns>
-		protected override IEnumerator<TElement> CloneAsEnumerator(IntervalTree<TElement, TEndpoint> originalTree)
+		/// <summary>Initializes a new instance of the <see cref="IntersectingEnumerator{TElement,TEndpoint}"/> class as a copy of
+		/// the specified enumerator. Copied enumerators are always in the <see cref="IEnumerator"/> state.</summary>
+		/// <param name="copy"><see cref="InOrderEnumerator{TElement,TEndpoint}"/> to copy.</param>
+		protected IntersectingEnumerator(IntersectingEnumerator<TElement, TEndpoint> copy)
+			: base(copy)
 		{
-			return new IntersectingEnumerator<TElement, TEndpoint>(originalTree, interval, alsoAdjacent, true);
+			Interval = copy.Interval;
+			alsoAdjacent = copy.alsoAdjacent;
+		}
+
+		/// <summary>Gets the interval to find all intersecting elements for.</summary>
+		protected IInterval<TEndpoint> Interval { get; }
+
+		/// <summary>Call copy ctor and return as an <see cref="IEnumerator{TElement}"/> instance.</summary>
+		/// <returns>Copied instance.</returns>
+		protected override IEnumerator<TElement> CallCopyCtor()
+		{
+			return new IntersectingEnumerator<TElement, TEndpoint>(this);
 		}
 
 		/// <summary>Determine whether the enumerator continue down the left side of the specified subtree.</summary>
@@ -52,8 +61,8 @@ namespace IntervalTreeNS
 				throw new ArgumentNullException(nameof(node));
 			// if the left subtree's max is smaller than the interval we're looking at, we can ignore the whole left subtree
 			if (alsoAdjacent)
-				return Comparer.Default.Compare(node.Left.Max, interval.Start) >= 0;
-			return Comparer.Default.Compare(node.Left.Max, interval.Start) > 0;
+				return Comparer.Default.Compare(node.Left.Max, Interval.Start) >= 0;
+			return Comparer.Default.Compare(node.Left.Max, Interval.Start) > 0;
 		}
 
 		/// <summary>Determine whether the enumerator continue down the right side of the specified subtree.</summary>
@@ -65,8 +74,8 @@ namespace IntervalTreeNS
 				throw new ArgumentNullException(nameof(node));
 			// if *this* node's starting endpoint is past the end of the interval we're looking at, we can ignore the whole right subtree
 			if (alsoAdjacent)
-				return Comparer.Default.Compare(node.Interval.Start, interval.End) <= 0;
-			return Comparer.Default.Compare(node.Interval.Start, interval.End) < 0;
+				return Comparer.Default.Compare(node.Interval.Start, Interval.End) <= 0;
+			return Comparer.Default.Compare(node.Interval.Start, Interval.End) < 0;
 		}
 
 		/// <summary>Determine whether to stop at the specified node. If true, will set to
@@ -78,8 +87,8 @@ namespace IntervalTreeNS
 			if (node == null || node == Sentinel)
 				throw new ArgumentNullException(nameof(node));
 			if (alsoAdjacent)
-				return node.Interval.IntersectsOrIsAdjacentTo(interval);
-			return node.Interval.Intersects(interval);
+				return node.Interval.IntersectsOrIsAdjacentTo(Interval);
+			return node.Interval.Intersects(Interval);
 		}
 	}
 }

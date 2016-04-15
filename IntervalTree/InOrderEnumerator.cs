@@ -21,9 +21,6 @@ namespace IntervalTreeNS
 		/// <summary>The <see cref="Thread.ManagedThreadId"/> that constructed the object.</summary>
 		private readonly int initialThreadId;
 
-		/// <summary>Tree enumerating.</summary>
-		private readonly IntervalTree<TElement, TEndpoint> tree;
-
 		/// <summary>Version of the tree when we started enumerating.</summary>
 		/// <remarks>When the version has been set this object has transitioned into its IEnumerator state.</remarks>
 		private int? version;
@@ -37,19 +34,30 @@ namespace IntervalTreeNS
 		/// <summary>Node we moved to.</summary>
 		private IntervalNode<TElement, TEndpoint> currentNode = Sentinel;
 
-		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class. </summary>
+		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class.</summary>
 		/// <param name="tree">Tree enumerating.</param>
 		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state. Otherwise it
 		/// will be in its <see cref="IEnumerable"/> state.</param>
 		internal InOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, bool asEnumerator = false)
 		{
 			initialThreadId = Thread.CurrentThread.ManagedThreadId;
-			this.tree = tree;
+			Tree = tree;
 			if (asEnumerator)
 			{
 				version = tree.Version;
 				stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 			}
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class as a copy of the
+		/// specified enumerator. Copied enumerators are always in the <see cref="IEnumerator"/> state.</summary>
+		/// <param name="copy"><see cref="InOrderEnumerator{TElement,TEndpoint}"/> to copy.</param>
+		protected InOrderEnumerator(InOrderEnumerator<TElement, TEndpoint> copy)
+		{
+			initialThreadId = Thread.CurrentThread.ManagedThreadId;
+			Tree = copy.Tree;
+			version = Tree.Version;
+			stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 		}
 
 		/// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
@@ -59,6 +67,9 @@ namespace IntervalTreeNS
 		/// <summary>Gets the current element in the collection.</summary>
 		/// <returns>The current element in the collection.</returns>
 		object IEnumerator.Current => Current;
+
+		/// <summary>Gets the tree enumerating.</summary>
+		protected IntervalTree<TElement, TEndpoint> Tree { get; }
 
 		/// <summary>Returns an enumerator that iterates through a collection.</summary>
 		/// <returns>An <see cref="IEnumerator"/> object that can be used to iterate through the collection.</returns>
@@ -77,11 +88,11 @@ namespace IntervalTreeNS
 		{
 			if (!version.HasValue && initialThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
-				version = tree.Version;
+				version = Tree.Version;
 				stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 				return this; // no extra object instantiation
 			}
-			return CloneAsEnumerator(tree);
+			return CallCopyCtor();
 		}
 
 		/// <summary>Advances the enumerator to the next element of the collection.</summary>
@@ -92,13 +103,13 @@ namespace IntervalTreeNS
 		{
 			if (!version.HasValue)
 				return false;
-			if (tree.Version != version)
+			if (Tree.Version != version)
 				throw new InvalidOperationException("Interval tree was modified.");
 			if (stack == null)
 				return false;
 			if (!enumerationStarted)
 			{
-				FillStack(tree.IRoot);
+				FillStack(Tree.IRoot);
 				enumerationStarted = true;
 			}
 
@@ -137,14 +148,12 @@ namespace IntervalTreeNS
 			}
 		}
 
-		/// <summary>Clone the current instance as an <see cref="IEnumerator{TElement}"/> instance.</summary>
-		/// <param name="originalTree">Original tree enumerating.</param>
-		/// <returns>This instance cloned.</returns>
-		// ReSharper disable once ParameterHidesMember
-		protected virtual IEnumerator<TElement> CloneAsEnumerator(IntervalTree<TElement, TEndpoint> originalTree)
+		/// <summary>Call copy ctor and return as an <see cref="IEnumerator{TElement}"/> instance.</summary>
+		/// <returns>Copied instance.</returns>
+		protected virtual IEnumerator<TElement> CallCopyCtor()
 		{
 			// it's cumpulsory that derived types override this =/
-			return new InOrderEnumerator<TElement, TEndpoint>(originalTree, true);
+			return new InOrderEnumerator<TElement, TEndpoint>(this);
 		}
 
 		/// <summary>Determine whether the enumerator continue down the left side of the specified subtree.</summary>

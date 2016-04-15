@@ -37,7 +37,37 @@ namespace IntervalTreeNS
 		{
 			Version++;
 			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
-			Insert(node);
+			Insert(node, IRoot);
+			node.Color = NodeColor.Red;
+			InsertFixup(node);
+			return node;
+		}
+
+		/// <summary>Adds the specified item to the interval tree and also gets all intersecting elements at the time of addition.</summary>
+		/// <param name="item">Item to add.</param>
+		/// <param name="intersectingCollection">Collection to add intersecting elements to.  Will call
+		/// <see cref="ICollection{TElement}.Add"/> for each element.</param>
+		/// <param name="alsoAdjacent">Set to true to also get all adjacent elements.</param>
+		/// <returns>The node added to the tree that contains this item.</returns>
+		public IIntervalNode<TElement> Add(
+			TElement item, ICollection<TElement> intersectingCollection, bool alsoAdjacent = false)
+		{
+			if (intersectingCollection == null)
+				throw new ArgumentNullException(nameof(intersectingCollection));
+			if (intersectingCollection.IsReadOnly)
+				throw new ArgumentException($"{nameof(intersectingCollection)} must not be readonly.");
+
+			IntersectingInsertEnumerator<TElement, TEndpoint> enumerator =
+				new IntersectingInsertEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent);
+			using (enumerator)
+			{
+				while (enumerator.MoveNext())
+					intersectingCollection.Add(enumerator.Current);
+			}
+
+			Version++;
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
+			Insert(node, enumerator.InsertionPoint);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
 			return node;
@@ -45,7 +75,7 @@ namespace IntervalTreeNS
 
 		/// <summary>Returns an enumerator that iterates through all elements that intersect the specified interval.</summary>
 		/// <param name="interval">Interval to use to find all intersecting elements.</param>
-		/// <param name="alsoAdjacent">Set to true to also get all adjacent intervals.</param>
+		/// <param name="alsoAdjacent">Set to true to also get all adjacent elements.</param>
 		/// <returns>An enumerator for all intersecting elements.</returns>
 		[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope",
 			Justification = "Just some oddness with the IEnumerable/IEnumerator duality.")]
@@ -120,27 +150,29 @@ namespace IntervalTreeNS
 
 		/// <summary>Inserts the node into the tree.</summary>
 		/// <param name="node">Node to insert.</param>
-		internal void Insert(IntervalNode<TElement, TEndpoint> node)
+		/// <param name="insertionPoint">Node representing the subtree to insert <paramref name="node"/> into.</param>
+		/// <remarks><paramref name="insertionPoint"/>'s purpose is not to allow inserting nodes at arbitrary subtrees. Rather, if
+		/// coupling insert operation with something else, and that something else can figure out where the node should be
+		/// inserted, then this method need not recompute it.</remarks>
+		internal void Insert(IntervalNode<TElement, TEndpoint> node, IntervalNode<TElement, TEndpoint> insertionPoint)
 		{
-			IntervalNode<TElement, TEndpoint> leaf = Sentinel;
-
-			// find the proper leaf node
-			IntervalNode<TElement, TEndpoint> curr = IRoot;
+			// find the proper insertion point
+			IntervalNode<TElement, TEndpoint> curr = insertionPoint == Sentinel ? IRoot : insertionPoint;
 			while (curr != Sentinel)
 			{
-				leaf = curr;
+				insertionPoint = curr;
 				if (Comparer<TEndpoint>.Default.Compare(node.Max, curr.Max) > 0) // update the max on our way down
 					curr.Max = node.Max;
 				curr = Comparer<TEndpoint>.Default.Compare(node.Interval.Start, curr.Interval.Start) < 0 ? curr.Left : curr.Right;
 			}
 
-			node.Parent = leaf;
-			if (leaf == Sentinel)
+			node.Parent = insertionPoint;
+			if (insertionPoint == Sentinel)
 				IRoot = node;
-			else if (Comparer<TEndpoint>.Default.Compare(node.Interval.Start, leaf.Interval.Start) < 0)
-				leaf.Left = node;
+			else if (Comparer<TEndpoint>.Default.Compare(node.Interval.Start, insertionPoint.Interval.Start) < 0)
+				insertionPoint.Left = node;
 			else
-				leaf.Right = node;
+				insertionPoint.Right = node;
 		}
 
 		/// <summary>Fixes up the tree based on red/black violations.</summary>
