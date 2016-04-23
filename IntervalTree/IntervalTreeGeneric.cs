@@ -39,7 +39,7 @@ namespace IntervalTreeNS
 		public IIntervalNode<TElement> Add(TElement item)
 		{
 			Version++;
-			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { ITree = this };
 			Insert(node, IRoot);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
@@ -69,7 +69,7 @@ namespace IntervalTreeNS
 			}
 
 			Version++;
-			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { Tree = this };
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { ITree = this };
 			Insert(node, enumerator.InsertionPoint);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);

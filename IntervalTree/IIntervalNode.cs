@@ -13,6 +13,9 @@ namespace IntervalTreeNS
 		/// <summary>Gets the element the node represents.</summary>
 		TElement Element { get; }
 
+		/// <summary>Gets the tree this node is included in.  Will be null if not in a tree.</summary>
+		IIntervalTree<TElement> Tree { get; }
+
 		/// <summary>Gets the parent node to this node.</summary>
 		IIntervalNode<TElement> Parent { get; }
 

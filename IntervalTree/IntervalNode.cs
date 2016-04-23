@@ -49,6 +49,9 @@ namespace IntervalTreeNS
 		/// <summary>Gets the element the node represents.</summary>
 		public TElement Element { get; }
 
+		/// <summary>Gets the tree this node is included in.  Will be null if not in a tree.</summary>
+		public IIntervalTree<TElement> Tree => ITree;
+
 		/// <summary>Gets the interval the node represents.</summary>
 		public IInterval<TEndpoint> Interval { get; }
 
@@ -67,7 +70,8 @@ namespace IntervalTreeNS
 #endif
 
 		/// <summary>Gets or sets the tree this node belongs to.</summary>
-		internal IntervalTree<TElement, TEndpoint> Tree { get; set; }
+		// ReSharper disable once InconsistentNaming
+		internal IntervalTree<TElement, TEndpoint> ITree { get; set; }
 
 		/// <summary>Gets or sets the color of this node.</summary>
 		internal NodeColor Color { get; set; } = NodeColor.Black;

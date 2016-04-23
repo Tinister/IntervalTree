@@ -95,6 +95,7 @@ namespace IntervalTreeNS.TestHelpers
 		private void N(IntervalNode<TElement, TEndpoint> node)
 		{
 			IntervalNode<TElement, TEndpoint> temp;
+			node.ITree = tree;
 
 			// find parent
 			if (depth == 0)
