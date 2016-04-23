@@ -13,7 +13,9 @@ namespace IntervalTreeNS
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
 	[SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix",
 		Justification = "'Tree' is already a sufficient suffix.")]
-	public class IntervalTree<TElement, TEndpoint> : IEnumerable<TElement>
+#pragma warning disable SA1649 // File name must match first type name
+	internal class IntervalTree<TElement, TEndpoint> : IIntervalTree<TElement>
+#pragma warning restore SA1649 // File name must match first type name
 		where TElement : IInterval<TEndpoint>
 		where TEndpoint : IComparable<TEndpoint>
 	{
@@ -75,14 +77,14 @@ namespace IntervalTreeNS
 		}
 
 		/// <summary>Returns an enumerator that iterates through all elements that intersect the specified interval.</summary>
-		/// <param name="interval">Interval to use to find all intersecting elements.</param>
+		/// <param name="item">Interval to use to find all intersecting elements.</param>
 		/// <param name="alsoAdjacent">Set to true to also get all adjacent elements.</param>
 		/// <returns>An enumerator for all intersecting elements.</returns>
 		[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope",
 			Justification = "Just some oddness with the IEnumerable/IEnumerator duality.")]
-		public IEnumerable<TElement> FindAllIntersecting(IInterval<TEndpoint> interval, bool alsoAdjacent = false)
+		public IEnumerable<TElement> FindAllIntersecting(TElement item, bool alsoAdjacent = false)
 		{
-			return new IntersectingEnumerator<TElement, TEndpoint>(this, interval, alsoAdjacent);
+			return new IntersectingEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent);
 		}
 
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
