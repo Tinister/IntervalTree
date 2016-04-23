@@ -45,12 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IInterval.cs" />
-    <Compile Include="IntersectingInsertEnumerator.cs" />
+    <Compile Include="Enumeration\IntersectingInsertEnumerator.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="IntervalNode.cs" />
     <Compile Include="IntervalTree.cs" />
-    <Compile Include="InOrderEnumerator.cs" />
-    <Compile Include="IntersectingEnumerator.cs" />
+    <Compile Include="Enumeration\InOrderEnumerator.cs" />
+    <Compile Include="Enumeration\IntersectingEnumerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

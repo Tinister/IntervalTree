@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IntervalTreeNS
+namespace IntervalTreeNS.Enumeration
 {
 	/// <summary>Class for enumerating all intersecting elements in a <see cref="IntervalTree{TElement,TEndpoint}"/> for a
 	/// specified interval.  Additionally keeps track of the insertion point the interval would be inserted under.</summary>

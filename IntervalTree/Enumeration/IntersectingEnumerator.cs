@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IntervalTreeNS
+namespace IntervalTreeNS.Enumeration
 {
 	/// <summary>Class for enumerating all intersecting elements in a <see cref="IntervalTree{TElement,TEndpoint}"/> for a
 	/// specified interval.</summary>

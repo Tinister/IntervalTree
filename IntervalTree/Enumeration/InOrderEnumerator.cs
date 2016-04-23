@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace IntervalTreeNS
+namespace IntervalTreeNS.Enumeration
 {
 	/// <summary>Class for enumerating an <see cref="IntervalTree{TElement,TEndpoint}"/>.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
