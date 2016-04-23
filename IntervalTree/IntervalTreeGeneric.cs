@@ -24,7 +24,7 @@ namespace IntervalTreeNS
 		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel = IntervalNode<TElement, TEndpoint>.Sentinel;
 
 		/// <summary>Gets the root node of the tree.</summary>
-		public IIntervalNode<TElement> Root => IRoot;
+		public IIntervalNode<TElement> Root => IRoot == Sentinel ? null : IRoot;
 
 		/// <summary>Gets or sets the root node of the tree.</summary>
 		// ReSharper disable once InconsistentNaming
