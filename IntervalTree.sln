@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree", "IntervalTree\IntervalTree.csproj", "{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree", "src\IntervalTree\IntervalTree.csproj", "{F1600D9F-2DF1-4A3B-8C4E-5288C4EA99EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree.Tests", "IntervalTree.Tests\IntervalTree.Tests.csproj", "{AB317863-858F-45FC-83F8-895DB8047AFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalTree.Tests", "src\IntervalTree.Tests\IntervalTree.Tests.csproj", "{AB317863-858F-45FC-83F8-895DB8047AFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
