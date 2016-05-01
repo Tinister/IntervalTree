@@ -68,10 +68,10 @@
             <article class="content wrap" id="_content">
               
               <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="btn btn-primary pull-right mobile-hide">Improve this Doc</a>
-              <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L24" class="btn btn-primary pull-right mobile-hide">View Source</a>
+              <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L28" class="btn btn-primary pull-right mobile-hide">View Source</a>
               <h1 id="IntervalTreeNS_IntervalExtensions" data-uid="IntervalTreeNS.IntervalExtensions">Class IntervalExtensions
               </h1>
-              <div class="markdown level0 summary"><p>Extension methods for common interval functions.</p>
+              <div class="markdown level0 summary"><p>Provides extension methods for common interval functions.</p>
 </div>
               <div class="markdown level0 conceptual"></div>
               <div class="inheritance">
@@ -92,10 +92,10 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0____0_.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.Contains%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2C%60%600)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L86">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L91">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0____0_" data-uid="IntervalTreeNS.IntervalExtensions.Contains``1(IntervalTreeNS.IInterval{``0},``0)">Contains&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, TEndpoint)</h4>
-              <div class="markdown level1 summary"><p>Determines if the two intervals intersect.</p>
+              <div class="markdown level1 summary"><p>Determines if the specified interval contains the specified value.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
@@ -137,7 +137,7 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Boolean</span></td>
-                    <td><p><code>true</code> if they intersect, <code>false</code> otherwise.</p>
+                    <td><p><code>true</code> if <em>value</em> is contained within <em>self</em>, <code>false</code> otherwise.</p>
 </td>
                   </tr>
                 </tbody>
@@ -162,10 +162,10 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.Contains%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2CIntervalTreeNS.IInterval%7B%60%600%7D)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L75">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L80">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__" data-uid="IntervalTreeNS.IntervalExtensions.Contains``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})">Contains&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, IInterval&lt;TEndpoint&gt;)</h4>
-              <div class="markdown level1 summary"><p>Determines if the one interval contains another interval.</p>
+              <div class="markdown level1 summary"><p>Determines if the one interval wholly contains another interval.</p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
@@ -207,7 +207,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Boolean</span></td>
-                    <td><p><code>true</code> if the first interval contains the second interval, <code>false</code> otherwise.</p>
+                    <td><p><code>true</code> if <em>other</em> is wholly contained within <em>self</em>, <code>false</code>
+otherwise.</p>
 </td>
                   </tr>
                 </tbody>
@@ -232,7 +233,7 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_Intersects__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.Intersects%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2CIntervalTreeNS.IInterval%7B%60%600%7D)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L31">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L35">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_Intersects__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__" data-uid="IntervalTreeNS.IntervalExtensions.Intersects``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})">Intersects&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, IInterval&lt;TEndpoint&gt;)</h4>
               <div class="markdown level1 summary"><p>Determines if the two intervals intersect.</p>
@@ -302,7 +303,7 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_IntersectsOrIsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.IntersectsOrIsAdjacentTo%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2CIntervalTreeNS.IInterval%7B%60%600%7D)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L53">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L57">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_IntersectsOrIsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__" data-uid="IntervalTreeNS.IntervalExtensions.IntersectsOrIsAdjacentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})">IntersectsOrIsAdjacentTo&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, IInterval&lt;TEndpoint&gt;)</h4>
               <div class="markdown level1 summary"><p>Determines if two intervals intersect or are adjacent.</p>
@@ -372,7 +373,7 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_IsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.IsAdjacentTo%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2CIntervalTreeNS.IInterval%7B%60%600%7D)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L42">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L46">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_IsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__" data-uid="IntervalTreeNS.IntervalExtensions.IsAdjacentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})">IsAdjacentTo&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, IInterval&lt;TEndpoint&gt;)</h4>
               <div class="markdown level1 summary"><p>Determines if two intervals are adjacent.</p>
@@ -442,7 +443,7 @@
                 <a href="https://github.com/Tinister/IntervalTree/new/master/src/IntervalTree/apispec/new?filename=IntervalTreeNS_IntervalExtensions_IsEquivalentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__.md&amp;value=---%0Auid%3A%20IntervalTreeNS.IntervalExtensions.IsEquivalentTo%60%601(IntervalTreeNS.IInterval%7B%60%600%7D%2CIntervalTreeNS.IInterval%7B%60%600%7D)%0Aremarks%3A%20'*THIS*%20is%20remarks%20overriden%20in%20*MARKDOWN*%20file'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L64">View Source</a>
+                <a href="https://github.com/Tinister/IntervalTree/blob/master/src/IntervalTree/IInterval.cs/#L68">View Source</a>
               </span>
               <h4 id="IntervalTreeNS_IntervalExtensions_IsEquivalentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__" data-uid="IntervalTreeNS.IntervalExtensions.IsEquivalentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})">IsEquivalentTo&lt;TEndpoint&gt;(IInterval&lt;TEndpoint&gt;, IInterval&lt;TEndpoint&gt;)</h4>
               <div class="markdown level1 summary"><p>Determines if the two intervals are equivalent.</p>
