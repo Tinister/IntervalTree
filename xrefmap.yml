@@ -1,0 +1,192 @@
+sorted: true
+references:
+- uid: IntervalTreeNS
+  name: IntervalTreeNS
+  href: api/IntervalTreeNS.html#IntervalTreeNS
+  fullName: IntervalTreeNS
+- uid: IntervalTreeNS.IInterval`1
+  name: IInterval<TEndpoint>
+  href: api/IntervalTreeNS.IInterval`1.html#IntervalTreeNS_IInterval_1
+  name.vb: IInterval(Of TEndpoint)
+  fullName: IntervalTreeNS.IInterval<TEndpoint>
+  fullName.vb: IntervalTreeNS.IInterval(Of TEndpoint)
+- uid: IntervalTreeNS.IInterval`1.End
+  name: End
+  href: api/IntervalTreeNS.IInterval`1.html#IntervalTreeNS_IInterval_1_End
+  fullName: IntervalTreeNS.IInterval<TEndpoint>.End
+  fullName.vb: IntervalTreeNS.IInterval(Of TEndpoint).End
+- uid: IntervalTreeNS.IInterval`1.Start
+  name: Start
+  href: api/IntervalTreeNS.IInterval`1.html#IntervalTreeNS_IInterval_1_Start
+  fullName: IntervalTreeNS.IInterval<TEndpoint>.Start
+  fullName.vb: IntervalTreeNS.IInterval(Of TEndpoint).Start
+- uid: IntervalTreeNS.IIntervalNode`1
+  name: IIntervalNode<TElement>
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1
+  name.vb: IIntervalNode(Of TElement)
+  fullName: IntervalTreeNS.IIntervalNode<TElement>
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement)
+- uid: IntervalTreeNS.IIntervalNode`1.Element
+  name: Element
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1_Element
+  fullName: IntervalTreeNS.IIntervalNode<TElement>.Element
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement).Element
+- uid: IntervalTreeNS.IIntervalNode`1.Left
+  name: Left
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1_Left
+  fullName: IntervalTreeNS.IIntervalNode<TElement>.Left
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement).Left
+- uid: IntervalTreeNS.IIntervalNode`1.Parent
+  name: Parent
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1_Parent
+  fullName: IntervalTreeNS.IIntervalNode<TElement>.Parent
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement).Parent
+- uid: IntervalTreeNS.IIntervalNode`1.Right
+  name: Right
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1_Right
+  fullName: IntervalTreeNS.IIntervalNode<TElement>.Right
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement).Right
+- uid: IntervalTreeNS.IIntervalNode`1.Tree
+  name: Tree
+  href: api/IntervalTreeNS.IIntervalNode`1.html#IntervalTreeNS_IIntervalNode_1_Tree
+  fullName: IntervalTreeNS.IIntervalNode<TElement>.Tree
+  fullName.vb: IntervalTreeNS.IIntervalNode(Of TElement).Tree
+- uid: IntervalTreeNS.IIntervalTree`1
+  name: IIntervalTree<TElement>
+  href: api/IntervalTreeNS.IIntervalTree`1.html#IntervalTreeNS_IIntervalTree_1
+  name.vb: IIntervalTree(Of TElement)
+  fullName: IntervalTreeNS.IIntervalTree<TElement>
+  fullName.vb: IntervalTreeNS.IIntervalTree(Of TElement)
+- uid: IntervalTreeNS.IIntervalTree`1.Add(`0)
+  name: Add(TElement)
+  href: api/IntervalTreeNS.IIntervalTree`1.html#IntervalTreeNS_IIntervalTree_1_Add__0_
+  fullName: IntervalTreeNS.IIntervalTree<TElement>.Add(TElement)
+  fullName.vb: IntervalTreeNS.IIntervalTree(Of TElement).Add(TElement)
+- uid: IntervalTreeNS.IIntervalTree`1.Add(`0,System.Collections.Generic.ICollection{`0},System.Boolean)
+  name: Add(TElement, ICollection<TElement>, Boolean)
+  href: api/IntervalTreeNS.IIntervalTree`1.html#IntervalTreeNS_IIntervalTree_1_Add__0_System_Collections_Generic_ICollection__0__System_Boolean_
+  name.vb: Add(TElement, ICollection(Of TElement), Boolean)
+  fullName: IntervalTreeNS.IIntervalTree<TElement>.Add(TElement, System.Collections.Generic.ICollection<TElement>, System.Boolean)
+  fullName.vb: IntervalTreeNS.IIntervalTree(Of TElement).Add(TElement, System.Collections.Generic.ICollection(Of TElement), System.Boolean)
+- uid: IntervalTreeNS.IIntervalTree`1.FindAllIntersecting(`0,System.Boolean)
+  name: FindAllIntersecting(TElement, Boolean)
+  href: api/IntervalTreeNS.IIntervalTree`1.html#IntervalTreeNS_IIntervalTree_1_FindAllIntersecting__0_System_Boolean_
+  fullName: IntervalTreeNS.IIntervalTree<TElement>.FindAllIntersecting(TElement, System.Boolean)
+  fullName.vb: IntervalTreeNS.IIntervalTree(Of TElement).FindAllIntersecting(TElement, System.Boolean)
+- uid: IntervalTreeNS.IIntervalTree`1.Root
+  name: Root
+  href: api/IntervalTreeNS.IIntervalTree`1.html#IntervalTreeNS_IIntervalTree_1_Root
+  fullName: IntervalTreeNS.IIntervalTree<TElement>.Root
+  fullName.vb: IntervalTreeNS.IIntervalTree(Of TElement).Root
+- uid: IntervalTreeNS.Interval`1
+  name: Interval<TEndpoint>
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1
+  name.vb: Interval(Of TEndpoint)
+  fullName: IntervalTreeNS.Interval<TEndpoint>
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint)
+- uid: IntervalTreeNS.Interval`1.#ctor(`0,`0)
+  name: Interval(TEndpoint, TEndpoint)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1__ctor__0__0_
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Interval(TEndpoint, TEndpoint)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Interval(TEndpoint, TEndpoint)
+- uid: IntervalTreeNS.Interval`1.#ctor(IntervalTreeNS.IInterval{`0})
+  name: Interval(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1__ctor_IntervalTreeNS_IInterval__0__
+  name.vb: Interval(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Interval(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Interval(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.Contains(`0)
+  name: Contains(TEndpoint)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_Contains__0_
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Contains(TEndpoint)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Contains(TEndpoint)
+- uid: IntervalTreeNS.Interval`1.Contains(IntervalTreeNS.IInterval{`0})
+  name: Contains(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_Contains_IntervalTreeNS_IInterval__0__
+  name.vb: Contains(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Contains(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Contains(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.End
+  name: End
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_End
+  fullName: IntervalTreeNS.Interval<TEndpoint>.End
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).End
+- uid: IntervalTreeNS.Interval`1.Intersects(IntervalTreeNS.IInterval{`0})
+  name: Intersects(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_Intersects_IntervalTreeNS_IInterval__0__
+  name.vb: Intersects(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Intersects(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Intersects(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.IntersectsOrIsAdjacentTo(IntervalTreeNS.IInterval{`0})
+  name: IntersectsOrIsAdjacentTo(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_IntersectsOrIsAdjacentTo_IntervalTreeNS_IInterval__0__
+  name.vb: IntersectsOrIsAdjacentTo(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.IntersectsOrIsAdjacentTo(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).IntersectsOrIsAdjacentTo(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.IsAdjacentTo(IntervalTreeNS.IInterval{`0})
+  name: IsAdjacentTo(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_IsAdjacentTo_IntervalTreeNS_IInterval__0__
+  name.vb: IsAdjacentTo(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.IsAdjacentTo(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).IsAdjacentTo(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.IsEquivalentTo(IntervalTreeNS.IInterval{`0})
+  name: IsEquivalentTo(IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_IsEquivalentTo_IntervalTreeNS_IInterval__0__
+  name.vb: IsEquivalentTo(IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.Interval<TEndpoint>.IsEquivalentTo(IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).IsEquivalentTo(IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.Interval`1.Start
+  name: Start
+  href: api/IntervalTreeNS.Interval`1.html#IntervalTreeNS_Interval_1_Start
+  fullName: IntervalTreeNS.Interval<TEndpoint>.Start
+  fullName.vb: IntervalTreeNS.Interval(Of TEndpoint).Start
+- uid: IntervalTreeNS.IntervalExtensions
+  name: IntervalExtensions
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions
+  fullName: IntervalTreeNS.IntervalExtensions
+- uid: IntervalTreeNS.IntervalExtensions.Contains``1(IntervalTreeNS.IInterval{``0},``0)
+  name: Contains<TEndpoint>(IInterval<TEndpoint>, TEndpoint)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0____0_
+  name.vb: Contains(Of TEndpoint)(IInterval(Of TEndpoint), TEndpoint)
+  fullName: IntervalTreeNS.IntervalExtensions.Contains<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, TEndpoint)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.Contains(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), TEndpoint)
+- uid: IntervalTreeNS.IntervalExtensions.Contains``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})
+  name: Contains<TEndpoint>(IInterval<TEndpoint>, IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_Contains__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__
+  name.vb: Contains(Of TEndpoint)(IInterval(Of TEndpoint), IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.IntervalExtensions.Contains<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.Contains(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.IntervalExtensions.Intersects``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})
+  name: Intersects<TEndpoint>(IInterval<TEndpoint>, IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_Intersects__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__
+  name.vb: Intersects(Of TEndpoint)(IInterval(Of TEndpoint), IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.IntervalExtensions.Intersects<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.Intersects(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.IntervalExtensions.IntersectsOrIsAdjacentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})
+  name: IntersectsOrIsAdjacentTo<TEndpoint>(IInterval<TEndpoint>, IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_IntersectsOrIsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__
+  name.vb: IntersectsOrIsAdjacentTo(Of TEndpoint)(IInterval(Of TEndpoint), IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.IntervalExtensions.IntersectsOrIsAdjacentTo<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.IntersectsOrIsAdjacentTo(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.IntervalExtensions.IsAdjacentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})
+  name: IsAdjacentTo<TEndpoint>(IInterval<TEndpoint>, IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_IsAdjacentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__
+  name.vb: IsAdjacentTo(Of TEndpoint)(IInterval(Of TEndpoint), IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.IntervalExtensions.IsAdjacentTo<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.IsAdjacentTo(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.IntervalExtensions.IsEquivalentTo``1(IntervalTreeNS.IInterval{``0},IntervalTreeNS.IInterval{``0})
+  name: IsEquivalentTo<TEndpoint>(IInterval<TEndpoint>, IInterval<TEndpoint>)
+  href: api/IntervalTreeNS.IntervalExtensions.html#IntervalTreeNS_IntervalExtensions_IsEquivalentTo__1_IntervalTreeNS_IInterval___0__IntervalTreeNS_IInterval___0__
+  name.vb: IsEquivalentTo(Of TEndpoint)(IInterval(Of TEndpoint), IInterval(Of TEndpoint))
+  fullName: IntervalTreeNS.IntervalExtensions.IsEquivalentTo<TEndpoint>(IntervalTreeNS.IInterval<TEndpoint>, IntervalTreeNS.IInterval<TEndpoint>)
+  fullName.vb: IntervalTreeNS.IntervalExtensions.IsEquivalentTo(Of TEndpoint)(IntervalTreeNS.IInterval(Of TEndpoint), IntervalTreeNS.IInterval(Of TEndpoint))
+- uid: IntervalTreeNS.IntervalTree
+  name: IntervalTree
+  href: api/IntervalTreeNS.IntervalTree.html#IntervalTreeNS_IntervalTree
+  fullName: IntervalTreeNS.IntervalTree
+- uid: IntervalTreeNS.IntervalTree.Create``2
+  name: Create<TElement, TEndpoint>()
+  href: api/IntervalTreeNS.IntervalTree.html#IntervalTreeNS_IntervalTree_Create__2
+  name.vb: Create(Of TElement, TEndpoint)()
+  fullName: IntervalTreeNS.IntervalTree.Create<TElement, TEndpoint>()
+  fullName.vb: IntervalTreeNS.IntervalTree.Create(Of TElement, TEndpoint)()
