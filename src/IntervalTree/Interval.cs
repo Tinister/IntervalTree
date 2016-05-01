@@ -37,9 +37,11 @@ namespace IntervalTreeNS
 		}
 
 		/// <summary>Gets the inclusive starting point of the interval.</summary>
+		/// <value>The inclusive starting point of the interval.</value>
 		public TEndpoint Start { get; }
 
 		/// <summary>Gets the inclusive ending point of the interval.</summary>
+		/// <value>The inclusive ending point of the interval.</value>
 		public TEndpoint End { get; }
 
 		/// <summary>Determines if the specified interval intersects this interval.</summary>
@@ -98,9 +100,9 @@ namespace IntervalTreeNS
 				|| Comparer<TEndpoint>.Default.Compare(End, other.End) == 0;
 		}
 
-		/// <summary>Determines if this interval contains the specified interval.</summary>
+		/// <summary>Determines if this interval wholly contains the specified interval.</summary>
 		/// <param name="other">Interval to compare with this one.</param>
-		/// <returns><c>true</c> if the specified interval is contained within this one, <c>false</c> otherwise.</returns>
+		/// <returns><c>true</c> if <paramref name="other"/> is wholly contained within this one, <c>false</c> otherwise.</returns>
 		public bool Contains(IInterval<TEndpoint> other)
 		{
 			if (other == null)
@@ -114,7 +116,7 @@ namespace IntervalTreeNS
 
 		/// <summary>Determines if this interval contains the specified value.</summary>
 		/// <param name="value">Value to compare.</param>
-		/// <returns><c>true</c> if this interval contains the specified value, <c>false</c> otherwise.</returns>
+		/// <returns><c>true</c> if this interval contains the <paramref name="value"/>, <c>false</c> otherwise.</returns>
 		public bool Contains(TEndpoint value)
 		{
 			return Comparer<TEndpoint>.Default.Compare(Start, value) <= 0

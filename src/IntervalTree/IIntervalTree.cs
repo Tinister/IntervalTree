@@ -8,11 +8,14 @@ namespace IntervalTreeNS
 {
 	/// <summary>Represents a strongly-typed collection of objects that can be represented by intervals.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
+#if SUPPRESS_MESSAGE
 	[SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix",
 		Justification = "'Tree' is already a sufficient suffix.")]
+#endif
 	public interface IIntervalTree<TElement> : IEnumerable<TElement>
 	{
 		/// <summary>Gets the root node of the tree.</summary>
+		/// <value>The root node of the tree.</value>
 		IIntervalNode<TElement> Root { get; }
 
 		/// <summary>Adds the specified item to the interval tree.</summary>
