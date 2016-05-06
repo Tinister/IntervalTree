@@ -11,7 +11,6 @@ namespace IntervalTreeNS.Enumeration
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
 	internal class IntersectingInsertEnumerator<TElement, TEndpoint> : IntersectingEnumerator<TElement, TEndpoint>
 		where TElement : IInterval<TEndpoint>
-		where TEndpoint : IComparable<TEndpoint>
 	{
 		/// <summary>The node to insert <see cref="IntersectingEnumerator{TElement,TEndpoint}.Interval"/> into.</summary>
 		private IntervalNode<TElement, TEndpoint> insertionPoint;
@@ -34,7 +33,7 @@ namespace IntervalTreeNS.Enumeration
 			private set
 			{
 				insertionPoint = value;
-				if (insertionPoint != Sentinel && Comparer<TEndpoint>.Default.Compare(Interval.End, insertionPoint.Max) > 0)
+				if (insertionPoint != Sentinel && Tree.Comparer.Compare(Interval.End, insertionPoint.Max) > 0)
 					insertionPoint.Max = Interval.End;
 			}
 		}
@@ -55,7 +54,7 @@ namespace IntervalTreeNS.Enumeration
 				throw new ArgumentNullException(nameof(node));
 
 			if (node.Parent == InsertionPoint &&
-				Comparer<TEndpoint>.Default.Compare(Interval.Start, InsertionPoint.Interval.Start) < 0)
+				Tree.Comparer.Compare(Interval.Start, InsertionPoint.Interval.Start) < 0)
 				InsertionPoint = node;
 
 			return base.GoLeft(node);
@@ -70,7 +69,7 @@ namespace IntervalTreeNS.Enumeration
 				throw new ArgumentNullException(nameof(node));
 
 			if (node.Parent == InsertionPoint &&
-				Comparer<TEndpoint>.Default.Compare(Interval.Start, InsertionPoint.Interval.Start) >= 0)
+				Tree.Comparer.Compare(Interval.Start, InsertionPoint.Interval.Start) >= 0)
 				InsertionPoint = node;
 
 			return base.GoRight(node);

@@ -17,11 +17,17 @@ namespace IntervalTreeNS
 	internal class IntervalTree<TElement, TEndpoint> : IIntervalTree<TElement>
 #pragma warning restore SA1649 // File name must match first type name
 		where TElement : IInterval<TEndpoint>
-		where TEndpoint : IComparable<TEndpoint>
 	{
 		/// <summary>A single sentinel object to use as boundaries of the tree.</summary>
 		/// <remarks>Same reference as <see cref="IntervalNode{TElement,TEndpoint}.Sentinel"/> to prevent excessive typing.</remarks>
 		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel = IntervalNode<TElement, TEndpoint>.Sentinel;
+
+		/// <summary>Initializes a new instance of the <see cref="IntervalTree{TElement, TEndpoint}"/> class.</summary>
+		/// <param name="comparer">An <see cref="IComparer{T}"/> to compare endpoints.</param>
+		internal IntervalTree(IComparer<TEndpoint> comparer)
+		{
+			Comparer = comparer;
+		}
 
 		/// <summary>Gets the root node of the tree.</summary>
 		public IIntervalNode<TElement> Root => IRoot == Sentinel ? null : IRoot;
@@ -29,6 +35,9 @@ namespace IntervalTreeNS
 		/// <summary>Gets or sets the root node of the tree.</summary>
 		// ReSharper disable once InconsistentNaming
 		internal IntervalNode<TElement, TEndpoint> IRoot { get; set; } = Sentinel;
+
+		/// <summary>Gets the <see cref="IComparer{T}"/> the tree is using to compare endpoints.</summary>
+		internal IComparer<TEndpoint> Comparer { get; }
 
 		/// <summary>Gets the current version of the tree.</summary>
 		internal int Version { get; private set; }
@@ -39,7 +48,7 @@ namespace IntervalTreeNS
 		public IIntervalNode<TElement> Add(TElement item)
 		{
 			Version++;
-			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { ITree = this };
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(this, item);
 			Insert(node, IRoot);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
@@ -69,7 +78,7 @@ namespace IntervalTreeNS
 			}
 
 			Version++;
-			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(item) { ITree = this };
+			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(this, item);
 			Insert(node, enumerator.InsertionPoint);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
@@ -164,15 +173,15 @@ namespace IntervalTreeNS
 			while (curr != Sentinel)
 			{
 				insertionPoint = curr;
-				if (Comparer<TEndpoint>.Default.Compare(node.Max, curr.Max) > 0) // update the max on our way down
+				if (Comparer.Compare(node.Max, curr.Max) > 0) // update the max on our way down
 					curr.Max = node.Max;
-				curr = Comparer<TEndpoint>.Default.Compare(node.Interval.Start, curr.Interval.Start) < 0 ? curr.Left : curr.Right;
+				curr = Comparer.Compare(node.Interval.Start, curr.Interval.Start) < 0 ? curr.Left : curr.Right;
 			}
 
 			node.Parent = insertionPoint;
 			if (insertionPoint == Sentinel)
 				IRoot = node;
-			else if (Comparer<TEndpoint>.Default.Compare(node.Interval.Start, insertionPoint.Interval.Start) < 0)
+			else if (Comparer.Compare(node.Interval.Start, insertionPoint.Interval.Start) < 0)
 				insertionPoint.Left = node;
 			else
 				insertionPoint.Right = node;

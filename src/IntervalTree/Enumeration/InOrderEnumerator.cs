@@ -12,7 +12,6 @@ namespace IntervalTreeNS.Enumeration
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
 	internal class InOrderEnumerator<TElement, TEndpoint> : IEnumerable<TElement>, IEnumerator<TElement>
 		where TElement : IInterval<TEndpoint>
-		where TEndpoint : IComparable<TEndpoint>
 	{
 		/// <summary>A single sentinel object to use as boundaries of the tree.</summary>
 		/// <remarks>Same reference as <see cref="IntervalNode{TElement,TEndpoint}.Sentinel"/> to prevent excessive typing.</remarks>

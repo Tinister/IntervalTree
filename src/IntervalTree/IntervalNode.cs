@@ -10,14 +10,13 @@ namespace IntervalTreeNS
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval the element represents.</typeparam>
 	internal sealed class IntervalNode<TElement, TEndpoint> : IIntervalNode<TElement>
 		where TElement : IInterval<TEndpoint>
-		where TEndpoint : IComparable<TEndpoint>
 	{
 		/// <summary>A single sentinel object to use as a null object.</summary>
 		internal static readonly IntervalNode<TElement, TEndpoint> Sentinel;
 
 		static IntervalNode()
 		{
-			Sentinel = new IntervalNode<TElement, TEndpoint>();
+			Sentinel = new IntervalNode<TElement, TEndpoint>(null);
 			// need to reset the sentinel's properties, as they're otherwise null
 			Sentinel.Parent = Sentinel;
 			Sentinel.Left = Sentinel;
@@ -28,22 +27,29 @@ namespace IntervalTreeNS
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class.</summary>
+		/// <param name="tree">The tree this node will belong to.</param>
 		/// <param name="element">The element the node represents.</param>
-		public IntervalNode(TElement element)
+		public IntervalNode(IntervalTree<TElement, TEndpoint> tree, TElement element)
 		{
+			if (tree == null)
+				throw new ArgumentNullException(nameof(tree));
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 			Element = element;
-			Interval = new Interval<TEndpoint>(element); // create a copy of the interval in case TElement changes...
+			Interval = new Interval<TEndpoint>(element, tree.Comparer);
+			// create a copy of the interval in case TElement changes...
+			ITree = tree;
 			Max = Interval.End;
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="IntervalNode{TElement, TEndpoint}"/> class to represents an empty
 		/// node.</summary>
-		internal IntervalNode()
+		/// <param name="tree">The tree this node will belong to.</param>
+		internal IntervalNode(IntervalTree<TElement, TEndpoint> tree)
 		{
 			Element = default(TElement);
-			Interval = new Interval<TEndpoint>(default(TEndpoint), default(TEndpoint));
+			Interval = default(Interval<TEndpoint>);
+			ITree = tree;
 		}
 
 		/// <summary>Gets the element the node represents.</summary>
@@ -69,9 +75,9 @@ namespace IntervalTreeNS
 		internal string Name { get; set; }
 #endif
 
-		/// <summary>Gets or sets the tree this node belongs to.</summary>
+		/// <summary>Gets the tree this node belongs to.</summary>
 		// ReSharper disable once InconsistentNaming
-		internal IntervalTree<TElement, TEndpoint> ITree { get; set; }
+		internal IntervalTree<TElement, TEndpoint> ITree { get; }
 
 		/// <summary>Gets or sets the color of this node.</summary>
 		internal NodeColor Color { get; set; } = NodeColor.Black;
@@ -91,22 +97,15 @@ namespace IntervalTreeNS
 		/// <summary>Updates <see cref="Max"/> by checking the actual maximum between itself and its direct children.</summary>
 		internal void UpdateMax()
 		{
+			if (ITree == null)
+				throw new InvalidOperationException("Cannot use this operation on node not part of a tree.");
+
 			TEndpoint max = Interval.End;
-			if (Left != Sentinel && Comparer<TEndpoint>.Default.Compare(Left.Max, max) > 0)
+			if (Left != Sentinel && ITree.Comparer.Compare(Left.Max, max) > 0)
 				max = Left.Max;
-			if (Right != Sentinel && Comparer<TEndpoint>.Default.Compare(Right.Max, max) > 0)
+			if (Right != Sentinel && ITree.Comparer.Compare(Right.Max, max) > 0)
 				max = Right.Max;
 			Max = max;
 		}
-	}
-
-	/// <summary>Defines the valid colors of a <see cref="IntervalNode{TElement,TEndpoint}"/>.</summary>
-	internal enum NodeColor
-	{
-		/// <summary>Represents the color black.</summary>
-		Black = 0,
-
-		/// <summary>Represents the color red.</summary>
-		Red
 	}
 }

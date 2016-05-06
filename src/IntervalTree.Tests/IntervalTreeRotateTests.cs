@@ -17,9 +17,9 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.B(nodeB);
@@ -37,9 +37,9 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeA);
@@ -57,15 +57,15 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_ { Name = "W" };
-			IntervalNode_ nodeX = new IntervalNode_ { Name = "X" };
-			IntervalNode_ nodeY = new IntervalNode_ { Name = "Y" };
-			IntervalNode_ nodeZ = new IntervalNode_ { Name = "Z" };
+			IntervalNode_ nodeW = new IntervalNode_(tree) { Name = "W" };
+			IntervalNode_ nodeX = new IntervalNode_(tree) { Name = "X" };
+			IntervalNode_ nodeY = new IntervalNode_(tree) { Name = "Y" };
+			IntervalNode_ nodeZ = new IntervalNode_(tree) { Name = "Z" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeW);
@@ -91,15 +91,15 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_ { Name = "W" };
-			IntervalNode_ nodeX = new IntervalNode_ { Name = "X" };
-			IntervalNode_ nodeY = new IntervalNode_ { Name = "Y" };
-			IntervalNode_ nodeZ = new IntervalNode_ { Name = "Z" };
+			IntervalNode_ nodeW = new IntervalNode_(tree) { Name = "W" };
+			IntervalNode_ nodeX = new IntervalNode_(tree) { Name = "X" };
+			IntervalNode_ nodeY = new IntervalNode_(tree) { Name = "Y" };
+			IntervalNode_ nodeZ = new IntervalNode_(tree) { Name = "Z" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.____.B(nodeX);
@@ -125,9 +125,9 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeA);
@@ -145,9 +145,9 @@ namespace IntervalTreeNS
 		{
 			// ReSharper disable once JoinDeclarationAndInitializer
 			TreeHelper_ h;
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_ { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_ { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree) { Name = "B" };
 
 			h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.B(nodeB);
@@ -163,9 +163,9 @@ namespace IntervalTreeNS
 		[Test]
 		public void LeftRotateNoChildrenUpdatesMax()
 		{
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(2, 5)) { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(1, 4)) { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree, new Interval<int>(2, 5)) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree, new Interval<int>(1, 4)) { Name = "B" };
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.B(nodeB);
@@ -180,9 +180,9 @@ namespace IntervalTreeNS
 		[Test]
 		public void RightRotateNoChildrenUpdatesMax()
 		{
-			IntervalTree_ tree = new IntervalTree_();
-			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(2, 5)) { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(1, 4)) { Name = "B" };
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
+			IntervalNode_ nodeA = new IntervalNode_(tree, new Interval<int>(2, 5)) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree, new Interval<int>(1, 4)) { Name = "B" };
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeA);
@@ -197,15 +197,15 @@ namespace IntervalTreeNS
 		[Test]
 		public void LeftRotateUpdatesMax()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(256, 256)) { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(384, 384)) { Name = "B" };
+			IntervalNode_ nodeA = new IntervalNode_(tree, new Interval<int>(256, 256)) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree, new Interval<int>(384, 384)) { Name = "B" };
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_(new Interval<int>(512, 512)) { Name = "W" };
-			IntervalNode_ nodeX = new IntervalNode_(new Interval<int>(128, 128)) { Name = "X" };
-			IntervalNode_ nodeY = new IntervalNode_(new Interval<int>(320, 320)) { Name = "Y" };
-			IntervalNode_ nodeZ = new IntervalNode_(new Interval<int>(448, 448)) { Name = "Z" };
+			IntervalNode_ nodeW = new IntervalNode_(tree, new Interval<int>(512, 512)) { Name = "W" };
+			IntervalNode_ nodeX = new IntervalNode_(tree, new Interval<int>(128, 128)) { Name = "X" };
+			IntervalNode_ nodeY = new IntervalNode_(tree, new Interval<int>(320, 320)) { Name = "Y" };
+			IntervalNode_ nodeZ = new IntervalNode_(tree, new Interval<int>(448, 448)) { Name = "Z" };
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.B(nodeW);
@@ -224,15 +224,15 @@ namespace IntervalTreeNS
 		[Test]
 		public void RightRotateUpdatesMax()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			// rotating nodes
-			IntervalNode_ nodeA = new IntervalNode_(new Interval<int>(768, 768)) { Name = "A" };
-			IntervalNode_ nodeB = new IntervalNode_(new Interval<int>(640, 640)) { Name = "B" };
+			IntervalNode_ nodeA = new IntervalNode_(tree, new Interval<int>(768, 768)) { Name = "A" };
+			IntervalNode_ nodeB = new IntervalNode_(tree, new Interval<int>(640, 640)) { Name = "B" };
 			// boundaries
-			IntervalNode_ nodeW = new IntervalNode_(new Interval<int>(512, 512)) { Name = "W" };
-			IntervalNode_ nodeX = new IntervalNode_(new Interval<int>(896, 896)) { Name = "X" };
-			IntervalNode_ nodeY = new IntervalNode_(new Interval<int>(576, 576)) { Name = "Y" };
-			IntervalNode_ nodeZ = new IntervalNode_(new Interval<int>(704, 704)) { Name = "Z" };
+			IntervalNode_ nodeW = new IntervalNode_(tree, new Interval<int>(512, 512)) { Name = "W" };
+			IntervalNode_ nodeX = new IntervalNode_(tree, new Interval<int>(896, 896)) { Name = "X" };
+			IntervalNode_ nodeY = new IntervalNode_(tree, new Interval<int>(576, 576)) { Name = "Y" };
+			IntervalNode_ nodeZ = new IntervalNode_(tree, new Interval<int>(704, 704)) { Name = "Z" };
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.____.B(nodeX);

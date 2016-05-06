@@ -15,9 +15,9 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void CompleteTreeEnumeration()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			IntervalNode_[] nodes = Enumerable.Range(0, 15)
-				.Select(i => new IntervalNode_(new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
+				.Select(i => new IntervalNode_(tree, new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.____.____.B(nodes[14]);
@@ -46,9 +46,9 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void LeftImbalancedEnumeration()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			IntervalNode_[] nodes = Enumerable.Range(0, 15)
-				.Select(i => new IntervalNode_(new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
+				.Select(i => new IntervalNode_(tree, new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.____.B(nodes[14]);
@@ -77,9 +77,9 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void RightImbalancedEnumeration()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 			IntervalNode_[] nodes = Enumerable.Range(0, 15)
-				.Select(i => new IntervalNode_(new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
+				.Select(i => new IntervalNode_(tree, new Interval<int>(i, i)) { Name = i.ToString() }).ToArray();
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
 			h.____.____.____.____.B(nodes[14]);
@@ -108,16 +108,16 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void FindAllIntersectingGetsAllNodes()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
-			h.____.____.B(new IntervalNode_(new Interval<int>(7, 7)));
-			h.____.B(new IntervalNode_(new Interval<int>(6, 6)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(5, 5)));
-			h.B(new IntervalNode_(new Interval<int>(4, 4)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(3, 3)));
-			h.____.B(new IntervalNode_(new Interval<int>(2, 2)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(1, 1)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(7, 7)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(6, 6)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(5, 5)));
+			h.B(new IntervalNode_(tree, new Interval<int>(4, 4)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(3, 3)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(0, 8)).ToArray();
 
@@ -129,16 +129,16 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void FindAllIntersectingNotAllNodes()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
-			h.____.____.B(new IntervalNode_(new Interval<int>(7, 7)));
-			h.____.B(new IntervalNode_(new Interval<int>(6, 6)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(5, 5)));
-			h.B(new IntervalNode_(new Interval<int>(4, 4)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(3, 3)));
-			h.____.B(new IntervalNode_(new Interval<int>(2, 2)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(1, 1)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(7, 7)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(6, 6)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(5, 5)));
+			h.B(new IntervalNode_(tree, new Interval<int>(4, 4)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(3, 3)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(2, 6)).ToArray();
 
@@ -150,16 +150,16 @@ namespace IntervalTreeNS.Enumeration
 		[Test]
 		public void FindAllIntersectingWithAdjacent()
 		{
-			IntervalTree_ tree = new IntervalTree_();
+			IntervalTree_ tree = new IntervalTree_(Comparer<int>.Default);
 
 			TreeHelper_ h = new TreeHelper_(TreeHelper_.Build, tree);
-			h.____.____.B(new IntervalNode_(new Interval<int>(7, 7)));
-			h.____.B(new IntervalNode_(new Interval<int>(6, 6)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(5, 5)));
-			h.B(new IntervalNode_(new Interval<int>(4, 4)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(3, 3)));
-			h.____.B(new IntervalNode_(new Interval<int>(2, 2)));
-			h.____.____.B(new IntervalNode_(new Interval<int>(1, 1)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(7, 7)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(6, 6)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(5, 5)));
+			h.B(new IntervalNode_(tree, new Interval<int>(4, 4)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(3, 3)));
+			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
+			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(2, 6), true).ToArray();
 

@@ -12,7 +12,6 @@ namespace IntervalTreeNS.Enumeration
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
 	internal class IntersectingEnumerator<TElement, TEndpoint> : InOrderEnumerator<TElement, TEndpoint>
 		where TElement : IInterval<TEndpoint>
-		where TEndpoint : IComparable<TEndpoint>
 	{
 		/// <summary>Set to true to also get adjacent intervals.</summary>
 		private readonly bool alsoAdjacent;
@@ -28,7 +27,7 @@ namespace IntervalTreeNS.Enumeration
 			bool asEnumerator = false)
 			: base(tree, asEnumerator)
 		{
-			Interval = new Interval<TEndpoint>(interval);
+			Interval = new Interval<TEndpoint>(interval, Tree.Comparer);
 			this.alsoAdjacent = alsoAdjacent;
 		}
 
@@ -87,8 +86,8 @@ namespace IntervalTreeNS.Enumeration
 			if (node == null || node == Sentinel)
 				throw new ArgumentNullException(nameof(node));
 			if (alsoAdjacent)
-				return node.Interval.IntersectsOrIsAdjacentTo(Interval);
-			return node.Interval.Intersects(Interval);
+				return node.Interval.IntersectsOrIsAdjacentTo(Interval, Tree.Comparer);
+			return node.Interval.Intersects(Interval, Tree.Comparer);
 		}
 	}
 }
