@@ -69,8 +69,8 @@ namespace IntervalTreeNS
 			if (intersectingCollection.IsReadOnly)
 				throw new ArgumentException($"{nameof(intersectingCollection)} must not be readonly.");
 
-			IntersectingInsertEnumerator<TElement, TEndpoint> enumerator =
-				new IntersectingInsertEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent);
+			IntersectingEnumerator<TElement, TEndpoint> enumerator =
+				new IntersectingEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent, true);
 			using (enumerator)
 			{
 				while (enumerator.MoveNext())
@@ -79,7 +79,7 @@ namespace IntervalTreeNS
 
 			Version++;
 			IntervalNode<TElement, TEndpoint> node = new IntervalNode<TElement, TEndpoint>(this, item);
-			Insert(node, enumerator.InsertionPoint);
+			Insert(node, IRoot);
 			node.Color = NodeColor.Red;
 			InsertFixup(node);
 			return node;

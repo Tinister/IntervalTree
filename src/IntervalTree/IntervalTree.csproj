@@ -47,9 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumeration\IntersectingEnumerator.cs" />
+    <Compile Include="Enumeration\TreeEnumerator.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="IInterval.cs" />
-    <Compile Include="Enumeration\IntersectingInsertEnumerator.cs" />
     <Compile Include="IIntervalNode.cs" />
     <Compile Include="IIntervalTree.cs" />
     <Compile Include="Interval.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="IntervalTree.cs" />
     <Compile Include="IntervalTreeGeneric.cs" />
     <Compile Include="Enumeration\InOrderEnumerator.cs" />
-    <Compile Include="Enumeration\IntersectingEnumerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

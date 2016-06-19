@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using NUnit.Framework;
 using IntervalNode_ = IntervalTreeNS.IntervalNode<IntervalTreeNS.Interval<int>, int>;
@@ -119,11 +120,12 @@ namespace IntervalTreeNS.Enumeration
 			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
 			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
+			int[] expectedIntervalStarts = { 1, 2, 3, 4, 5, 6, 7 };
+
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(0, 8)).ToArray();
 
 			Assert.AreEqual(7, intervals.Length);
-			for (int i = 1; i <= 7; i++)
-				Assert.AreEqual(i, intervals[i - 1].Start, $"Intervals at index {i - 1} differ.");
+			Assert.That(intervals.Select(i => i.Start), Is.EquivalentTo(expectedIntervalStarts));
 		}
 
 		[Test]
@@ -140,11 +142,12 @@ namespace IntervalTreeNS.Enumeration
 			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
 			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
+			int[] expectedIntervalStarts = { 3, 4, 5 };
+
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(2, 6)).ToArray();
 
 			Assert.AreEqual(3, intervals.Length);
-			for (int i = 3; i <= 5; i++)
-				Assert.AreEqual(i, intervals[i - 3].Start, $"Intervals at index {i - 3} differ.");
+			Assert.That(intervals.Select(i => i.Start), Is.EquivalentTo(expectedIntervalStarts));
 		}
 
 		[Test]
@@ -161,11 +164,12 @@ namespace IntervalTreeNS.Enumeration
 			h.____.B(new IntervalNode_(tree, new Interval<int>(2, 2)));
 			h.____.____.B(new IntervalNode_(tree, new Interval<int>(1, 1)));
 
+			int[] expectedIntervalStarts = { 2, 3, 4, 5, 6 };
+
 			Interval<int>[] intervals = tree.FindAllIntersecting(new Interval<int>(2, 6), true).ToArray();
 
 			Assert.AreEqual(5, intervals.Length);
-			for (int i = 2; i <= 6; i++)
-				Assert.AreEqual(i, intervals[i - 2].Start, $"Intervals at index {i - 2} differ.");
+			Assert.That(intervals.Select(i => i.Start), Is.EquivalentTo(expectedIntervalStarts));
 		}
 	}
 }

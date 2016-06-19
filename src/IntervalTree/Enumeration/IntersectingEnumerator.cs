@@ -8,13 +8,18 @@ namespace IntervalTreeNS.Enumeration
 {
 	/// <summary>Class for enumerating all intersecting elements in a <see cref="IntervalTree{TElement,TEndpoint}"/> for a
 	/// specified interval.</summary>
+	/// <remarks>Walks the tree in "preorder" traversal so that finding the first intersecting interval can finish the
+	/// traversal right away.</remarks>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	internal class IntersectingEnumerator<TElement, TEndpoint> : InOrderEnumerator<TElement, TEndpoint>
+	internal class IntersectingEnumerator<TElement, TEndpoint> : TreeEnumerator<TElement, TEndpoint>
 		where TElement : IInterval<TEndpoint>
 	{
 		/// <summary>Set to true to also get adjacent intervals.</summary>
 		private readonly bool alsoAdjacent;
+
+		/// <summary>Keeping track of the nodes as we traverse.  If this field is null, the enumeration is finished.</summary>
+		private readonly Stack<IntervalNode<TElement, TEndpoint>> stack = new Stack<IntervalNode<TElement, TEndpoint>>();
 
 		/// <summary>Initializes a new instance of the <see cref="IntersectingEnumerator{TElement,TEndpoint}"/> class.</summary>
 		/// <param name="tree">Tree enumerating.</param>
@@ -33,8 +38,8 @@ namespace IntervalTreeNS.Enumeration
 
 		/// <summary>Initializes a new instance of the <see cref="IntersectingEnumerator{TElement,TEndpoint}"/> class as a copy of
 		/// the specified enumerator. Copied enumerators are always in the <see cref="IEnumerator"/> state.</summary>
-		/// <param name="copy"><see cref="InOrderEnumerator{TElement,TEndpoint}"/> to copy.</param>
-		protected IntersectingEnumerator(IntersectingEnumerator<TElement, TEndpoint> copy)
+		/// <param name="copy"><see cref="IntersectingEnumerator{TElement,TEndpoint}"/> to copy.</param>
+		internal IntersectingEnumerator(IntersectingEnumerator<TElement, TEndpoint> copy)
 			: base(copy)
 		{
 			Interval = copy.Interval;
@@ -42,7 +47,7 @@ namespace IntervalTreeNS.Enumeration
 		}
 
 		/// <summary>Gets the interval to find all intersecting elements for.</summary>
-		protected IInterval<TEndpoint> Interval { get; }
+		internal IInterval<TEndpoint> Interval { get; }
 
 		/// <summary>Call copy ctor and return as an <see cref="IEnumerator{TElement}"/> instance.</summary>
 		/// <returns>Copied instance.</returns>
@@ -51,43 +56,67 @@ namespace IntervalTreeNS.Enumeration
 			return new IntersectingEnumerator<TElement, TEndpoint>(this);
 		}
 
-		/// <summary>Determine whether the enumerator continue down the left side of the specified subtree.</summary>
-		/// <param name="node">Node at the top of the subtree before the enumerator is at before it decides to go left.</param>
-		/// <returns>true to continue down the left subtree, false to skip the left subtree.</returns>
-		protected override bool GoLeft(IntervalNode<TElement, TEndpoint> node)
+		/// <summary>Advances the enumerator to the next element of the collection.</summary>
+		/// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the
+		/// end of the collection.</returns>
+		/// <exception cref="InvalidOperationException">The collection was modified after the enumerator was created.</exception>
+		protected override bool MoveNextCore()
 		{
-			if (node == null || node == Sentinel)
-				throw new ArgumentNullException(nameof(node));
+			while (true)
+			{
+				if (CurrentNode == Sentinel) // only true when "above" the root
+					CurrentNode = Tree.IRoot;
+				else if (CanGoLeft())
+					CurrentNode = CurrentNode.Left;
+				else
+				{
+					if (stack.Count == 0)
+						return false;
+
+					CurrentNode = stack.Pop();
+				}
+
+				if (CanGoRight())
+					stack.Push(CurrentNode.Right);
+
+				if (StopHere())
+					return true;
+			}
+		}
+
+		/// <summary>Determine whether the enumerator can continue down the left side of the subtree at
+		/// <see cref="TreeEnumerator{TElement,TEndpoint}.CurrentNode"/>.</summary>
+		/// <returns>true to continue down the left subtree, false to skip the left subtree.</returns>
+		private bool CanGoLeft()
+		{
+			if (CurrentNode.Left == Sentinel)
+				return false;
 			// if the left subtree's max is smaller than the interval we're looking at, we can ignore the whole left subtree
 			if (alsoAdjacent)
-				return Comparer.Default.Compare(node.Left.Max, Interval.Start) >= 0;
-			return Comparer.Default.Compare(node.Left.Max, Interval.Start) > 0;
+				return Tree.Comparer.Compare(CurrentNode.Left.Max, Interval.Start) >= 0;
+			return Tree.Comparer.Compare(CurrentNode.Left.Max, Interval.Start) > 0;
 		}
 
-		/// <summary>Determine whether the enumerator continue down the right side of the specified subtree.</summary>
-		/// <param name="node">Node at the top of the subtree before the enumerator is at before it decides to go right.</param>
+		/// <summary>Determine whether the enumerator can continue down the right side of the subtree at
+		/// <see cref="TreeEnumerator{TElement,TEndpoint}.CurrentNode"/>.</summary>
 		/// <returns>true to continue down the right subtree, false to skip the right subtree.</returns>
-		protected override bool GoRight(IntervalNode<TElement, TEndpoint> node)
+		private bool CanGoRight()
 		{
-			if (node == null || node == Sentinel)
-				throw new ArgumentNullException(nameof(node));
+			if (CurrentNode.Right == Sentinel)
+				return false;
 			// if *this* node's starting endpoint is past the end of the interval we're looking at, we can ignore the whole right subtree
 			if (alsoAdjacent)
-				return Comparer.Default.Compare(node.Interval.Start, Interval.End) <= 0;
-			return Comparer.Default.Compare(node.Interval.Start, Interval.End) < 0;
+				return Tree.Comparer.Compare(CurrentNode.Interval.Start, Interval.End) <= 0;
+			return Tree.Comparer.Compare(CurrentNode.Interval.Start, Interval.End) < 0;
 		}
 
-		/// <summary>Determine whether to stop at the specified node. If true, will set to
-		/// <see cref="InOrderEnumerator{TElement,TEndpoint}.Current"/> and return.</summary>
-		/// <param name="node">Node the enumerator is currently stopped at.</param>
+		/// <summary>Determine whether to stop at current value for <see cref="TreeEnumerator{TElement,TEndpoint}.CurrentNode"/>.</summary>
 		/// <returns>true to stop at this node and return it to the enumerator's caller.</returns>
-		protected override bool StopHere(IntervalNode<TElement, TEndpoint> node)
+		private bool StopHere()
 		{
-			if (node == null || node == Sentinel)
-				throw new ArgumentNullException(nameof(node));
 			if (alsoAdjacent)
-				return node.Interval.IntersectsOrIsAdjacentTo(Interval, Tree.Comparer);
-			return node.Interval.Intersects(Interval, Tree.Comparer);
+				return CurrentNode.Interval.IntersectsOrIsAdjacentTo(Interval, Tree.Comparer);
+			return CurrentNode.Interval.Intersects(Interval, Tree.Comparer);
 		}
 	}
 }
