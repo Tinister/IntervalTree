@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumeration\IntersectingEnumerator.cs" />
+    <Compile Include="Enumeration\IntersectingModifier.cs" />
+    <Compile Include="Enumeration\PreOrderEnumerator.cs" />
+    <Compile Include="Enumeration\ITraversalModifier.cs" />
     <Compile Include="Enumeration\TreeEnumerator.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="IInterval.cs" />

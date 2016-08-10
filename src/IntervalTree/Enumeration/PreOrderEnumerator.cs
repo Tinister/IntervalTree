@@ -1,34 +1,32 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IntervalTreeNS.Enumeration
 {
-	/// <summary>Class for enumerating an <see cref="IntervalTree{TElement,TEndpoint}"/> with an in-order tree walk.</summary>
+	/// <summary>Class for enumerating an <see cref="IntervalTree{TElement,TEndpoint}"/> with an pre-order tree walk.</summary>
 	/// <typeparam name="TElement">The type of elements in the tree.</typeparam>
 	/// <typeparam name="TEndpoint">The type of the endpoints of the interval each element represents.</typeparam>
-	internal sealed class InOrderEnumerator<TElement, TEndpoint> : TreeEnumerator<TElement, TEndpoint>
+	internal sealed class PreOrderEnumerator<TElement, TEndpoint> : TreeEnumerator<TElement, TEndpoint>
 		where TElement : IInterval<TEndpoint>
 	{
 		/// <summary>Keeping track of the nodes as we traverse.</summary>
 		private Stack<IntervalNode<TElement, TEndpoint>> stack;
 
-		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class.</summary>
+		/// <summary>Initializes a new instance of the <see cref="PreOrderEnumerator{TElement,TEndpoint}"/> class.</summary>
 		/// <param name="tree">Tree enumerating.</param>
 		/// <param name="modifier"><see cref="ITraversalModifier{TElement,TEndpoint}"/> instance to modify this traversal.</param>
 		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state. Otherwise it
 		/// will be in its <see cref="IEnumerable"/> state.</param>
-		internal InOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, ITraversalModifier<TElement, TEndpoint> modifier, bool asEnumerator = false)
+		internal PreOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, ITraversalModifier<TElement, TEndpoint> modifier, bool asEnumerator = false)
 			: base(tree, modifier, asEnumerator)
 		{
 		}
 
-		/// <summary>Initializes a new instance of the <see cref="InOrderEnumerator{TElement,TEndpoint}"/> class as a copy of the
+		/// <summary>Initializes a new instance of the <see cref="PreOrderEnumerator{TElement,TEndpoint}"/> class as a copy of the
 		/// specified enumerator. Copied enumerators are always in the <see cref="IEnumerator"/> state.</summary>
-		/// <param name="copy"><see cref="InOrderEnumerator{TElement,TEndpoint}"/> to copy.</param>
-		private InOrderEnumerator(InOrderEnumerator<TElement, TEndpoint> copy)
+		/// <param name="copy"><see cref="PreOrderEnumerator{TElement,TEndpoint}"/> to copy.</param>
+		private PreOrderEnumerator(PreOrderEnumerator<TElement, TEndpoint> copy)
 			: base(copy)
 		{
 		}
@@ -40,19 +38,23 @@ namespace IntervalTreeNS.Enumeration
 		protected override bool MoveNextCore()
 		{
 			if (stack == null)
-			{
 				stack = new Stack<IntervalNode<TElement, TEndpoint>>();
-				FillStack(Tree.IRoot); // testing stack == null to determine "before first element" state
-			}
 			while (true)
 			{
-				if (stack.Count == 0)
-					return false;
+				if (CurrentNode == Sentinel) // only true when "above" the root
+					CurrentNode = Tree.IRoot;
+				else if (CurrentNode.Left != Sentinel && Modifier.CanGoLeft(CurrentNode))
+					CurrentNode = CurrentNode.Left;
+				else
+				{
+					if (stack.Count == 0)
+						return false;
 
-				CurrentNode = stack.Pop();
+					CurrentNode = stack.Pop();
+				}
 
-				if (CurrentNode.Right != Sentinel && Modifier.CanGoLeft(CurrentNode))
-					FillStack(CurrentNode.Right);
+				if (CurrentNode.Right != Sentinel && Modifier.CanGoRight(CurrentNode))
+					stack.Push(CurrentNode.Right);
 
 				if (Modifier.CanYield(CurrentNode))
 					return true;
@@ -63,24 +65,7 @@ namespace IntervalTreeNS.Enumeration
 		/// <returns>Copied instance.</returns>
 		protected override IEnumerator<TElement> CallCopyCtor()
 		{
-			return new InOrderEnumerator<TElement, TEndpoint>(this);
-		}
-
-		/// <summary>Fills the stack with the node and the left child of the node (repeat).</summary>
-		/// <param name="node">Node to fill the stack with.</param>
-		private void FillStack(IntervalNode<TElement, TEndpoint> node)
-		{
-			if (node == Sentinel)
-				return;
-			while (true)
-			{
-				stack.Push(node); // always push the argument node
-
-				if (node.Left != Sentinel && Modifier.CanGoLeft(node))
-					node = node.Left;
-				else
-					break;
-			}
+			return new PreOrderEnumerator<TElement, TEndpoint>(this);
 		}
 	}
 }

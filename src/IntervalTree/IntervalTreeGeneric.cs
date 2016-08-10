@@ -69,8 +69,8 @@ namespace IntervalTreeNS
 			if (intersectingCollection.IsReadOnly)
 				throw new ArgumentException($"{nameof(intersectingCollection)} must not be readonly.");
 
-			IntersectingEnumerator<TElement, TEndpoint> enumerator =
-				new IntersectingEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent, true);
+			IntersectingModifier<TElement, TEndpoint> modifier = new IntersectingModifier<TElement, TEndpoint>(item, Comparer, alsoAdjacent);
+			PreOrderEnumerator<TElement, TEndpoint> enumerator = new PreOrderEnumerator<TElement, TEndpoint>(this, modifier, asEnumerator: true);
 			using (enumerator)
 			{
 				while (enumerator.MoveNext())
@@ -93,12 +93,13 @@ namespace IntervalTreeNS
 			Justification = "Just some oddness with the IEnumerable/IEnumerator duality.")]
 		public IEnumerable<TElement> FindAllIntersecting(TElement item, bool alsoAdjacent = false)
 		{
-			return new IntersectingEnumerator<TElement, TEndpoint>(this, item, alsoAdjacent);
+			IntersectingModifier<TElement, TEndpoint> modifier = new IntersectingModifier<TElement, TEndpoint>(item, Comparer, alsoAdjacent);
+			return new PreOrderEnumerator<TElement, TEndpoint>(this, modifier);
 		}
 
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
 		/// <returns>A <see cref="IEnumerator{TElement}"/> that can be used to iterate through the collection.</returns>
-		public IEnumerator<TElement> GetEnumerator() => new InOrderEnumerator<TElement, TEndpoint>(this, true);
+		public IEnumerator<TElement> GetEnumerator() => new InOrderEnumerator<TElement, TEndpoint>(this, null, true);
 
 		/// <summary>Returns an enumerator that iterates through a collection.</summary>
 		/// <returns>An <see cref="IEnumerator"/> object that can be used to iterate through the collection.</returns>

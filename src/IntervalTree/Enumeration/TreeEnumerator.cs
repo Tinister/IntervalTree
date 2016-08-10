@@ -29,12 +29,16 @@ namespace IntervalTreeNS.Enumeration
 
 		/// <summary>Initializes a new instance of the <see cref="TreeEnumerator{TElement, TEndpoint}"/> class.</summary>
 		/// <param name="tree">Tree enumerating.</param>
+		/// <param name="modifier"><see cref="ITraversalModifier{TElement,TEndpoint}"/> instance to modify this traversal.</param>
 		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state. Otherwise it
 		/// will be in its <see cref="IEnumerable"/> state.</param>
-		protected TreeEnumerator(IntervalTree<TElement, TEndpoint> tree, bool asEnumerator = false)
+		protected TreeEnumerator(
+			IntervalTree<TElement, TEndpoint> tree, ITraversalModifier<TElement, TEndpoint> modifier = null,
+			bool asEnumerator = false)
 		{
 			initialThreadId = Thread.CurrentThread.ManagedThreadId;
 			Tree = tree;
+			Modifier = modifier ?? new VoidModifier<TElement, TEndpoint>();
 			state = EnumeratorState.NotAnEnumerator;
 			if (asEnumerator)
 			{
@@ -50,21 +54,9 @@ namespace IntervalTreeNS.Enumeration
 		{
 			initialThreadId = Thread.CurrentThread.ManagedThreadId;
 			Tree = copy.Tree;
+			Modifier = copy.Modifier;
 			version = Tree.Version;
 			state = EnumeratorState.Enumerating;
-		}
-
-		/// <summary>Different states an enumerator can be in.</summary>
-		private enum EnumeratorState
-		{
-			/// <summary>Returned as an <see cref="IEnumerable"/> before <see cref="IEnumerable.GetEnumerator"/> is called.</summary>
-			NotAnEnumerator = -1,
-
-			/// <summary>Currently enumerating.</summary>
-			Enumerating = 0,
-
-			/// <summary>Finished enumerating.</summary>
-			Finished = 1
 		}
 
 		/// <summary>Gets the element in the collection at the current position of the enumerator.</summary>
@@ -77,6 +69,9 @@ namespace IntervalTreeNS.Enumeration
 
 		/// <summary>Gets the tree enumerating.</summary>
 		protected IntervalTree<TElement, TEndpoint> Tree { get; }
+
+		/// <summary>Gets the <see cref="ITraversalModifier{TElement,TEndpoint}"/> instance modifying this traversal.</summary>
+		protected ITraversalModifier<TElement, TEndpoint> Modifier { get; }
 
 		/// <summary>Gets or sets the node at the current position of the enumerator.</summary>
 		protected IntervalNode<TElement, TEndpoint> CurrentNode { get; set; } = Sentinel;
@@ -149,10 +144,23 @@ namespace IntervalTreeNS.Enumeration
 		}
 
 		/// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
-		/// <exception cref="InvalidOperationException">The collection was modified after the enumerator was created. </exception>
+		/// <exception cref="InvalidOperationException">The collection was modified after the enumerator was created.</exception>
 		protected static void Reset()
 		{
 			throw new NotSupportedException();
+		}
+
+		/// <summary>Different states an enumerator can be in.</summary>
+		private enum EnumeratorState
+		{
+			/// <summary>Returned as an <see cref="IEnumerable"/> before <see cref="IEnumerable.GetEnumerator"/> is called.</summary>
+			NotAnEnumerator = -1,
+
+			/// <summary>Currently enumerating.</summary>
+			Enumerating = 0,
+
+			/// <summary>Finished enumerating.</summary>
+			Finished = 1
 		}
 	}
 }
