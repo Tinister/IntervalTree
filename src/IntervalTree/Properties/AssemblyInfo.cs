@@ -37,4 +37,5 @@ using System.Runtime.InteropServices;
 
 #if DEBUG
 [assembly: InternalsVisibleTo("IntervalTree.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 #endif

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace IntervalTreeNS.Enumeration
 {
@@ -13,12 +15,16 @@ namespace IntervalTreeNS.Enumeration
 		/// <summary>Keeping track of the nodes as we traverse.</summary>
 		private Stack<IntervalNode<TElement, TEndpoint>> stack;
 
+		/// <summary>Number of nodes at the top of the stack that are unverified.</summary>
+		private int unverifiedLength;
+
 		/// <summary>Initializes a new instance of the <see cref="PreOrderEnumerator{TElement,TEndpoint}"/> class.</summary>
 		/// <param name="tree">Tree enumerating.</param>
 		/// <param name="modifier"><see cref="ITraversalModifier{TElement,TEndpoint}"/> instance to modify this traversal.</param>
 		/// <param name="asEnumerator">Set to true to instantiate this object in its <see cref="IEnumerator"/> state. Otherwise it
 		/// will be in its <see cref="IEnumerable"/> state.</param>
-		internal PreOrderEnumerator(IntervalTree<TElement, TEndpoint> tree, ITraversalModifier<TElement, TEndpoint> modifier, bool asEnumerator = false)
+		internal PreOrderEnumerator(
+			IntervalTree<TElement, TEndpoint> tree, ITraversalModifier<TElement, TEndpoint> modifier, bool asEnumerator = false)
 			: base(tree, modifier, asEnumerator)
 		{
 		}
@@ -42,22 +48,41 @@ namespace IntervalTreeNS.Enumeration
 			while (true)
 			{
 				if (CurrentNode == Sentinel) // only true when "above" the root
+				{
+					unverifiedLength = 0;
 					CurrentNode = Tree.IRoot;
-				else if (CurrentNode.Left != Sentinel && Modifier.CanGoLeft(CurrentNode))
+				}
+				else if (CanGoLeft())
+				{
 					CurrentNode = CurrentNode.Left;
+				}
+				else if (stack.Count > 0 && stack.Peek() == CurrentNode.Right)
+				{
+					if (unverifiedLength > 0)
+						unverifiedLength--;
+					CurrentNode = stack.Pop();
+				}
 				else
 				{
+					for (; unverifiedLength > 0; unverifiedLength--)
+						stack.Pop();
 					if (stack.Count == 0)
 						return false;
 
 					CurrentNode = stack.Pop();
 				}
 
-				if (CurrentNode.Right != Sentinel && Modifier.CanGoRight(CurrentNode))
+				if (CanGoRight())
+				{
+					unverifiedLength++;
 					stack.Push(CurrentNode.Right);
+				}
 
 				if (Modifier.CanYield(CurrentNode))
+				{
+					unverifiedLength = 0;
 					return true;
+				}
 			}
 		}
 
@@ -67,5 +92,13 @@ namespace IntervalTreeNS.Enumeration
 		{
 			return new PreOrderEnumerator<TElement, TEndpoint>(this);
 		}
+
+		/// <summary>Determines whether we can go down the left subtree from the current node.</summary>
+		/// <returns><c>true</c> if we can go left from the current node.</returns>
+		private bool CanGoLeft() => CurrentNode.Left != Sentinel && Modifier.CanGoLeft(CurrentNode);
+
+		/// <summary>Determines whether we can go down the right subtree from the current node.</summary>
+		/// <returns><c>true</c> if we can go right from the current node.</returns>
+		private bool CanGoRight() => CurrentNode.Right != Sentinel && Modifier.CanGoRight(CurrentNode);
 	}
 }
